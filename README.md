@@ -19,15 +19,15 @@ Acompanhe em: https://github.com/Ottavvi/pousada-site/actions
 
 ## Painel (/admin)
 
-Feito com [Sveltia CMS](https://sveltiacms.app). Para entrar, use **"Entrar Usando Token de Acesso"**:
+Feito com [Sveltia CMS](https://sveltiacms.app), para editar o conteúdo sem abrir o código
+(até pelo celular). Só quem tem acesso ao repositório consegue salvar.
+Para entrar, use **"Entrar Usando Token de Acesso"** (o botão "Entrar com GitHub" não funciona,
+pois exigiria um servidor de login):
 
 1. Crie um token em https://github.com/settings/personal-access-tokens/new
    - *Repository access*: só o repositório `pousada-site`
    - *Permissions → Contents*: **Read and write**
 2. Cole o token na tela do painel. Ele fica salvo naquele navegador.
-
-Quem for editar precisa de uma conta no GitHub com acesso ao repositório
-(Settings → Collaborators para convidar a dona da pousada).
 
 O que dá para editar: datas ocupadas, preços e fotos dos quartos, temporadas, pacotes,
 perguntas frequentes, localização e passeios, avaliações, fotos, contatos, Pix e integrações.
