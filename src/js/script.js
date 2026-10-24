@@ -143,6 +143,8 @@ function initRedesSociais() {
     facebook: FACEBOOK
   };
   document.querySelectorAll('[data-social]').forEach(link => {
+    // Rede sem endereço cadastrado: esconde o botão em vez de levar a um link errado
+    if (!links[link.dataset.social]) return link.remove();
     link.href = links[link.dataset.social];
     link.addEventListener('click', () => registrarEvento(`clique_${link.dataset.social}`));
   });

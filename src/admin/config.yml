@@ -294,8 +294,8 @@ collections:
               - { label: Endereço, name: endereco, widget: string, hint: "Também é usado para mostrar o mapa." }
               - { label: Cidade, name: cidade, widget: string }
               - { label: Estado (sigla), name: uf, widget: string }
-              - { label: Link do Instagram, name: instagram, widget: string }
-              - { label: Link do Facebook, name: facebook, widget: string }
+              - { label: Link do Instagram, name: instagram, widget: string, required: false, hint: "Deixe vazio para esconder os botões do Instagram." }
+              - { label: Link do Facebook, name: facebook, widget: string, required: false, hint: "Deixe vazio para esconder os botões do Facebook." }
           - label: Pix (pagamento do sinal)
             name: pix
             widget: object
