@@ -6,17 +6,33 @@
   <title>Pousada Lagoa Azul</title>
   <meta name="description" content="Pousada à beira-mar com quartos confortáveis, café da manhã regional e atendimento acolhedor.">
   <meta name="theme-color" content="#0e7c86">
+
+  <!-- Endereço do site: ao mudar para domínio próprio, troque "https://ottavvi.github.io/pousada-site/"
+       aqui no <head>, no sitemap.xml e no robots.txt -->
+  <link rel="canonical" href="https://ottavvi.github.io/pousada-site/">
+  <link rel="alternate" hreflang="pt-BR" href="https://ottavvi.github.io/pousada-site/">
+  <link rel="alternate" hreflang="en" href="https://ottavvi.github.io/pousada-site/?lang=en">
+  <link rel="alternate" hreflang="es" href="https://ottavvi.github.io/pousada-site/?lang=es">
+  <link rel="alternate" hreflang="x-default" href="https://ottavvi.github.io/pousada-site/">
+
+  <!-- Pré-visualização ao compartilhar o link (WhatsApp, Facebook...) -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ottavvi.github.io/pousada-site/">
   <meta property="og:title" content="Pousada Lagoa Azul">
   <meta property="og:description" content="Pousada à beira-mar com quartos confortáveis, café da manhã regional e atendimento acolhedor.">
+  <meta property="og:image" content="https://ottavvi.github.io/pousada-site/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:locale" content="pt_BR">
-  <!-- Ao publicar, use o endereço completo do site: <meta property="og:image" content="https://seusite.com.br/img/hero.jpg"> -->
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="preload" as="image" href="img/hero.jpg">
+  <link rel="preload" as="image" href="img/hero-1080.webp" media="(max-width: 768px)">
+  <link rel="preload" as="image" href="img/hero-1920.webp" media="(min-width: 769px)">
 
   <!-- Dados estruturados para o Google (atualize com os dados reais da pousada) -->
   <script type="application/ld+json">
@@ -24,8 +40,9 @@
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     "name": "Pousada Lagoa Azul",
+    "url": "https://ottavvi.github.io/pousada-site/",
     "description": "Pousada à beira-mar com quartos confortáveis, café da manhã regional e atendimento acolhedor.",
-    "image": "img/hero.jpg",
+    "image": "https://ottavvi.github.io/pousada-site/img/og.jpg",
     "telephone": "+55-00-0000-0000",
     "email": "contato@lagoaazul.com.br",
     "address": {
@@ -39,6 +56,7 @@
     "checkinTime": "14:00",
     "checkoutTime": "12:00",
     "petsAllowed": true,
+    "availableLanguage": ["pt-BR", "en", "es"],
     "amenityFeature": [
       { "@type": "LocationFeatureSpecification", "name": "Piscina", "value": true },
       { "@type": "LocationFeatureSpecification", "name": "Café da manhã incluso", "value": true },
@@ -50,7 +68,7 @@
 </head>
 <body>
 
-  <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+  <a href="#conteudo" class="skip-link" data-i18n="skip">Pular para o conteúdo</a>
 
   <!-- ===== CABEÇALHO ===== -->
   <header class="header" id="header">
@@ -62,14 +80,18 @@
       </button>
 
       <nav class="nav" id="nav">
-        <a href="#inicio" class="nav__link">Início</a>
-        <a href="#sobre" class="nav__link">Sobre</a>
-        <a href="#quartos" class="nav__link">Quartos</a>
-        <a href="#comodidades" class="nav__link">Comodidades</a>
-        <a href="#galeria" class="nav__link">Galeria</a>
-        <a href="#depoimentos" class="nav__link">Depoimentos</a>
-        <a href="#contato" class="nav__link">Contato</a>
-        <a href="#reserva" class="btn btn--small">Reservar</a>
+        <a href="#sobre" class="nav__link" data-i18n="nav.about">Sobre</a>
+        <a href="#quartos" class="nav__link" data-i18n="nav.rooms">Quartos</a>
+        <a href="#galeria" class="nav__link" data-i18n="nav.gallery">Galeria</a>
+        <a href="#localizacao" class="nav__link" data-i18n="nav.location">Localização</a>
+        <a href="#duvidas" class="nav__link" data-i18n="nav.faq">Dúvidas</a>
+        <a href="#contato" class="nav__link" data-i18n="nav.contact">Contato</a>
+        <a href="#reserva" class="btn btn--small" data-i18n="nav.book">Reservar</a>
+        <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
+          <button type="button" data-lang="pt" lang="pt-BR" aria-label="Português">PT</button>
+          <button type="button" data-lang="en" lang="en" aria-label="English">EN</button>
+          <button type="button" data-lang="es" lang="es" aria-label="Español">ES</button>
+        </div>
       </nav>
     </div>
   </header>
@@ -80,12 +102,12 @@
     <section class="hero" id="inicio">
       <div class="hero__overlay"></div>
       <div class="container hero__content">
-        <p class="hero__tag">Bem-vindo ao paraíso</p>
-        <h1>Descanso, mar e acolhimento em um só lugar</h1>
-        <p class="hero__text">A poucos passos da praia, com café da manhã regional e quartos pensados para o seu conforto.</p>
+        <p class="hero__tag" data-i18n="hero.tag">Bem-vindo ao paraíso</p>
+        <h1 data-i18n="hero.title">Descanso, mar e acolhimento em um só lugar</h1>
+        <p class="hero__text" data-i18n="hero.text">A poucos passos da praia, com café da manhã regional e quartos pensados para o seu conforto.</p>
         <div class="hero__actions">
-          <a href="#reserva" class="btn">Reservar agora</a>
-          <a href="#quartos" class="btn btn--outline">Ver quartos</a>
+          <a href="#reserva" class="btn" data-i18n="hero.book">Reservar agora</a>
+          <a href="#quartos" class="btn btn--outline" data-i18n="hero.rooms">Ver quartos</a>
         </div>
       </div>
     </section>
@@ -103,23 +125,23 @@
             <input type="date" id="checkout" name="checkout" required>
           </div>
           <div class="field">
-            <label for="hospedes">Hóspedes</label>
+            <label for="hospedes" data-i18n="booking.guests">Hóspedes</label>
             <select id="hospedes" name="hospedes">
-              <option value="1">1 adulto</option>
-              <option value="2" selected>2 adultos</option>
-              <option value="3">3 adultos</option>
-              <option value="4">4 adultos</option>
+              <option value="1" data-i18n="booking.guests1">1 adulto</option>
+              <option value="2" selected data-i18n="booking.guests2">2 adultos</option>
+              <option value="3" data-i18n="booking.guests3">3 adultos</option>
+              <option value="4" data-i18n="booking.guests4">4 adultos</option>
             </select>
           </div>
           <div class="field">
-            <label for="tipoQuarto">Quarto</label>
+            <label for="tipoQuarto" data-i18n="booking.room">Quarto</label>
             <select id="tipoQuarto" name="tipoQuarto">
               <option value="standard">Standard</option>
-              <option value="luxo">Luxo</option>
-              <option value="suite">Suíte Master</option>
+              <option value="luxo" data-i18n="room.luxo">Luxo</option>
+              <option value="suite" data-i18n="room.suite">Suíte Master</option>
             </select>
           </div>
-          <button type="submit" class="btn">Verificar</button>
+          <button type="submit" class="btn" data-i18n="booking.submit">Verificar</button>
         </form>
         <div class="booking__result" id="bookingResult" aria-live="polite"></div>
       </div>
@@ -128,75 +150,112 @@
     <!-- ===== SOBRE ===== -->
     <section class="section about" id="sobre">
       <div class="container about__grid">
-        <img class="about__image" src="img/sobre.jpg" alt="Área da piscina com espreguiçadeiras e a casa principal da pousada" loading="lazy" width="1200" height="800">
+        <img class="about__image"
+             src="img/sobre-1200.webp"
+             srcset="img/sobre-600.webp 600w, img/sobre-1200.webp 1200w"
+             sizes="(max-width: 900px) 100vw, 540px"
+             alt="Área da piscina com espreguiçadeiras e a casa principal da pousada"
+             data-i18n-attr="alt:alt.about"
+             loading="lazy" width="1200" height="800">
         <div class="about__text">
-          <p class="section__tag">Sobre nós</p>
-          <h2>Uma pousada com alma de casa</h2>
-          <p>Há mais de 15 anos recebemos hóspedes que buscam tranquilidade, contato com a natureza e um atendimento que faz sentir em casa.</p>
-          <p>Nossa estrutura combina o charme rústico com o conforto moderno, cercada de jardins e com vista para o mar.</p>
+          <p class="section__tag" data-i18n="about.tag">Sobre nós</p>
+          <h2 data-i18n="about.title">Uma pousada com alma de casa</h2>
+          <p data-i18n="about.p1">Há mais de 15 anos recebemos hóspedes que buscam tranquilidade, contato com a natureza e um atendimento que faz sentir em casa.</p>
+          <p data-i18n="about.p2">Nossa estrutura combina o charme rústico com o conforto moderno, cercada de jardins e com vista para o mar.</p>
           <ul class="about__stats">
-            <li><strong data-count="15">0</strong><span>anos de história</span></li>
-            <li><strong data-count="12">0</strong><span>quartos</span></li>
-            <li><strong data-count="4800">0</strong><span>hóspedes felizes</span></li>
+            <li><strong data-count="15">0</strong><span data-i18n="about.stat1">anos de história</span></li>
+            <li><strong data-count="12">0</strong><span data-i18n="about.stat2">quartos</span></li>
+            <li><strong data-count="4800">0</strong><span data-i18n="about.stat3">hóspedes felizes</span></li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- ===== QUARTOS ===== -->
+    <!-- Fotos: troque em img/originais/ e rode "npm run imagens" (veja img/CREDITOS.md) -->
     <section class="section rooms" id="quartos">
       <div class="container">
         <div class="section__header">
-          <p class="section__tag">Acomodações</p>
-          <h2>Nossos quartos</h2>
+          <p class="section__tag" data-i18n="rooms.tag">Acomodações</p>
+          <h2 data-i18n="rooms.title">Nossos quartos</h2>
         </div>
 
         <div class="rooms__grid">
           <article class="room-card">
-            <img class="room-card__img" src="img/quarto-standard.jpg" alt="Quarto Standard com cama de casal e janela para o jardim" loading="lazy" width="1200" height="800">
+            <div class="room-carousel" data-carousel>
+              <div class="room-carousel__track">
+                <img src="img/quarto-standard-1200.webp" srcset="img/quarto-standard-600.webp 600w, img/quarto-standard-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Quarto Standard com cama de casal e janela para o jardim" data-i18n-attr="alt:alt.standard1" loading="lazy" width="1200" height="800">
+                <img src="img/quarto-standard-banheiro-1200.webp" srcset="img/quarto-standard-banheiro-600.webp 600w, img/quarto-standard-banheiro-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Banheiro do quarto Standard" data-i18n-attr="alt:alt.standard2" loading="lazy" width="1200" height="1799">
+                <img src="img/quarto-standard-detalhe-1200.webp" srcset="img/quarto-standard-detalhe-600.webp 600w, img/quarto-standard-detalhe-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Detalhe da cama e criado-mudo do quarto Standard" data-i18n-attr="alt:alt.standard3" loading="lazy" width="1200" height="800">
+              </div>
+            </div>
             <div class="room-card__body">
               <h3>Standard</h3>
-              <p>Cama de casal, ar-condicionado, TV e frigobar. Ideal para casais.</p>
+              <p data-i18n="room.standard.desc">Cama de casal, ar-condicionado, TV e frigobar. Ideal para casais.</p>
               <ul class="room-card__features">
-                <li>2 pessoas</li><li>18 m²</li><li>Wi-Fi</li>
+                <li data-i18n="feat.people2">2 pessoas</li><li>18 m²</li><li>Wi-Fi</li>
               </ul>
               <div class="room-card__footer">
-                <p class="price">R$ 250<span>/noite</span></p>
-                <a href="#reserva" class="btn btn--small" data-room="standard">Reservar</a>
+                <p class="price"><small data-i18n="rooms.from">a partir de</small>R$ 250<span data-i18n="rooms.night">/noite</span></p>
+                <a href="#reserva" class="btn btn--small" data-room="standard" data-i18n="rooms.book">Reservar</a>
               </div>
             </div>
           </article>
 
           <article class="room-card">
-            <img class="room-card__img" src="img/quarto-luxo.jpg" alt="Quarto Luxo com piso de madeira e portas para a varanda" loading="lazy" width="1200" height="800">
+            <div class="room-carousel" data-carousel>
+              <div class="room-carousel__track">
+                <img src="img/quarto-luxo-1200.webp" srcset="img/quarto-luxo-600.webp 600w, img/quarto-luxo-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Quarto Luxo com piso de madeira e portas para a varanda" data-i18n-attr="alt:alt.luxo1" loading="lazy" width="1200" height="800">
+                <img src="img/quarto-luxo-banheira-1200.webp" srcset="img/quarto-luxo-banheira-600.webp 600w, img/quarto-luxo-banheira-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Banheira de hidromassagem do quarto Luxo" data-i18n-attr="alt:alt.luxo2" loading="lazy" width="1200" height="800">
+                <img src="img/galeria-jardim-1200.webp" srcset="img/galeria-jardim-600.webp 600w, img/galeria-jardim-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Vista do jardim a partir da varanda do quarto Luxo" data-i18n-attr="alt:alt.luxo3" loading="lazy" width="1200" height="800">
+              </div>
+            </div>
             <div class="room-card__body">
-              <h3>Luxo</h3>
-              <p>Varanda com rede, vista para o jardim e banheira de hidromassagem.</p>
+              <h3 data-i18n="room.luxo">Luxo</h3>
+              <p data-i18n="room.luxo.desc">Varanda com rede, vista para o jardim e banheira de hidromassagem.</p>
               <ul class="room-card__features">
-                <li>3 pessoas</li><li>26 m²</li><li>Varanda</li>
+                <li data-i18n="feat.people3">3 pessoas</li><li>26 m²</li><li data-i18n="feat.balcony">Varanda</li>
               </ul>
               <div class="room-card__footer">
-                <p class="price">R$ 380<span>/noite</span></p>
-                <a href="#reserva" class="btn btn--small" data-room="luxo">Reservar</a>
+                <p class="price"><small data-i18n="rooms.from">a partir de</small>R$ 380<span data-i18n="rooms.night">/noite</span></p>
+                <a href="#reserva" class="btn btn--small" data-room="luxo" data-i18n="rooms.book">Reservar</a>
               </div>
             </div>
           </article>
 
           <article class="room-card">
-            <img class="room-card__img" src="img/quarto-suite.jpg" alt="Suíte Master ampla com sala de estar e janelas panorâmicas" loading="lazy" width="1200" height="800">
+            <div class="room-carousel" data-carousel>
+              <div class="room-carousel__track">
+                <img src="img/quarto-suite-1200.webp" srcset="img/quarto-suite-600.webp 600w, img/quarto-suite-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Suíte Master ampla com sala de estar e janelas panorâmicas" data-i18n-attr="alt:alt.suite1" loading="lazy" width="1200" height="800">
+                <img src="img/quarto-suite-vista-1200.webp" srcset="img/quarto-suite-vista-600.webp 600w, img/quarto-suite-vista-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Vista para o mar a partir da Suíte Master" data-i18n-attr="alt:alt.suite2" loading="lazy" width="1200" height="900">
+                <img src="img/quarto-suite-banheiro-1200.webp" srcset="img/quarto-suite-banheiro-600.webp 600w, img/quarto-suite-banheiro-1200.webp 1200w" sizes="(max-width: 700px) 100vw, 380px"
+                     alt="Banheiro da Suíte Master com banheira" data-i18n-attr="alt:alt.suite3" loading="lazy" width="1200" height="801">
+              </div>
+            </div>
             <div class="room-card__body">
-              <h3>Suíte Master</h3>
-              <p>Vista para o mar, cama king size, sala de estar e café servido no quarto.</p>
+              <h3 data-i18n="room.suite">Suíte Master</h3>
+              <p data-i18n="room.suite.desc">Vista para o mar, cama king size, sala de estar e café servido no quarto.</p>
               <ul class="room-card__features">
-                <li>4 pessoas</li><li>40 m²</li><li>Vista mar</li>
+                <li data-i18n="feat.people4">4 pessoas</li><li>40 m²</li><li data-i18n="feat.seaview">Vista mar</li>
               </ul>
               <div class="room-card__footer">
-                <p class="price">R$ 560<span>/noite</span></p>
-                <a href="#reserva" class="btn btn--small" data-room="suite">Reservar</a>
+                <p class="price"><small data-i18n="rooms.from">a partir de</small>R$ 560<span data-i18n="rooms.night">/noite</span></p>
+                <a href="#reserva" class="btn btn--small" data-room="suite" data-i18n="rooms.book">Reservar</a>
               </div>
             </div>
           </article>
         </div>
+
+        <!-- Texto gerado pelo js/script.js a partir das TEMPORADAS configuradas -->
+        <p class="rooms__note" id="seasonNote"></p>
       </div>
     </section>
 
@@ -204,16 +263,16 @@
     <section class="section amenities" id="comodidades">
       <div class="container">
         <div class="section__header">
-          <p class="section__tag">Estrutura</p>
-          <h2>Comodidades</h2>
+          <p class="section__tag" data-i18n="amen.tag">Estrutura</p>
+          <h2 data-i18n="amen.title">Comodidades</h2>
         </div>
         <ul class="amenities__grid">
-          <li class="amenity"><span class="amenity__icon">🏊</span><h3>Piscina</h3><p>Piscina adulto e infantil com espreguiçadeiras.</p></li>
-          <li class="amenity"><span class="amenity__icon">☕</span><h3>Café da manhã</h3><p>Café regional incluso na diária.</p></li>
-          <li class="amenity"><span class="amenity__icon">📶</span><h3>Wi-Fi grátis</h3><p>Internet em todas as áreas.</p></li>
-          <li class="amenity"><span class="amenity__icon">🚗</span><h3>Estacionamento</h3><p>Vagas cobertas e gratuitas.</p></li>
-          <li class="amenity"><span class="amenity__icon">🐾</span><h3>Pet friendly</h3><p>Seu pet também é bem-vindo.</p></li>
-          <li class="amenity"><span class="amenity__icon">🏖️</span><h3>Pé na areia</h3><p>A 50 metros da praia.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🏊</span><h3 data-i18n="amen.pool">Piscina</h3><p data-i18n="amen.pool.p">Piscina adulto e infantil com espreguiçadeiras.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">☕</span><h3 data-i18n="amen.breakfast">Café da manhã</h3><p data-i18n="amen.breakfast.p">Café regional incluso na diária.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">📶</span><h3 data-i18n="amen.wifi">Wi-Fi grátis</h3><p data-i18n="amen.wifi.p">Internet em todas as áreas.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🚗</span><h3 data-i18n="amen.parking">Estacionamento</h3><p data-i18n="amen.parking.p">Vagas cobertas e gratuitas.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🐾</span><h3>Pet friendly</h3><p data-i18n="amen.pets.p">Seu pet também é bem-vindo.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🏖️</span><h3 data-i18n="amen.beach">Pé na areia</h3><p data-i18n="amen.beach.p">A 50 metros da praia.</p></li>
         </ul>
       </div>
     </section>
@@ -222,17 +281,22 @@
     <section class="section gallery" id="galeria">
       <div class="container">
         <div class="section__header">
-          <p class="section__tag">Fotos</p>
-          <h2>Galeria</h2>
+          <p class="section__tag" data-i18n="gal.tag">Fotos</p>
+          <h2 data-i18n="gal.title">Galeria</h2>
         </div>
-        <!-- Fotos provisórias (Unsplash). Para trocar, substitua os arquivos em img/ mantendo os nomes -->
         <div class="gallery__grid">
-          <img class="gallery__item" src="img/galeria-piscina.jpg" alt="Piscina com deck de madeira de frente para o mar" loading="lazy" width="1200" height="800">
-          <img class="gallery__item" src="img/galeria-jardim.jpg" alt="Jardim tropical ao redor da piscina" loading="lazy" width="1200" height="800">
-          <img class="gallery__item" src="img/quarto-suite.jpg" alt="Suíte Master" loading="lazy" width="1200" height="800">
-          <img class="gallery__item" src="img/galeria-cafe.jpg" alt="Café da manhã servido na pousada" loading="lazy" width="1200" height="800">
-          <img class="gallery__item" src="img/galeria-praia.jpg" alt="Vista aérea da praia de águas azuis" loading="lazy" width="1200" height="2133">
-          <img class="gallery__item" src="img/galeria-por-do-sol.jpg" alt="Deck da piscina ao pôr do sol" loading="lazy" width="1200" height="800">
+          <img class="gallery__item" src="img/galeria-piscina-1200.webp" srcset="img/galeria-piscina-600.webp 600w, img/galeria-piscina-1200.webp 1200w" sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 380px"
+               alt="Piscina com deck de madeira de frente para o mar" data-i18n-attr="alt:alt.gal1" loading="lazy" width="1200" height="800">
+          <img class="gallery__item" src="img/galeria-jardim-1200.webp" srcset="img/galeria-jardim-600.webp 600w, img/galeria-jardim-1200.webp 1200w" sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 380px"
+               alt="Jardim tropical ao redor da piscina" data-i18n-attr="alt:alt.gal2" loading="lazy" width="1200" height="800">
+          <img class="gallery__item" src="img/quarto-suite-1200.webp" srcset="img/quarto-suite-600.webp 600w, img/quarto-suite-1200.webp 1200w" sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 380px"
+               alt="Suíte Master" data-i18n-attr="alt:room.suite" loading="lazy" width="1200" height="800">
+          <img class="gallery__item" src="img/galeria-cafe-1200.webp" srcset="img/galeria-cafe-600.webp 600w, img/galeria-cafe-1200.webp 1200w" sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 380px"
+               alt="Café da manhã servido na pousada" data-i18n-attr="alt:alt.gal4" loading="lazy" width="1200" height="800">
+          <img class="gallery__item" src="img/galeria-praia-1200.webp" srcset="img/galeria-praia-600.webp 600w, img/galeria-praia-1200.webp 1200w" sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 380px"
+               alt="Vista aérea da praia de águas azuis" data-i18n-attr="alt:alt.gal5" loading="lazy" width="1200" height="2136">
+          <img class="gallery__item" src="img/galeria-por-do-sol-1200.webp" srcset="img/galeria-por-do-sol-600.webp 600w, img/galeria-por-do-sol-1200.webp 1200w" sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 380px"
+               alt="Deck da piscina ao pôr do sol" data-i18n-attr="alt:alt.gal6" loading="lazy" width="1200" height="800">
         </div>
       </div>
     </section>
@@ -241,30 +305,110 @@
     <section class="section testimonials" id="depoimentos">
       <div class="container">
         <div class="section__header">
-          <p class="section__tag">Avaliações</p>
-          <h2>O que dizem nossos hóspedes</h2>
+          <p class="section__tag" data-i18n="test.tag">Avaliações</p>
+          <h2 data-i18n="test.title">O que dizem nossos hóspedes</h2>
         </div>
 
         <div class="slider" id="slider">
           <div class="slider__track">
             <blockquote class="slide is-active">
-              <p>"Lugar maravilhoso, equipe atenciosa e o café da manhã é impecável. Voltaremos!"</p>
+              <p data-i18n="test.q1">"Lugar maravilhoso, equipe atenciosa e o café da manhã é impecável. Voltaremos!"</p>
               <cite>— Ana Paula, Recife</cite>
             </blockquote>
             <blockquote class="slide">
-              <p>"Quarto limpo, confortável e a vista da suíte é de tirar o fôlego."</p>
+              <p data-i18n="test.q2">"Quarto limpo, confortável e a vista da suíte é de tirar o fôlego."</p>
               <cite>— Ricardo M., São Paulo</cite>
             </blockquote>
             <blockquote class="slide">
-              <p>"Levamos nosso cachorro e fomos super bem recebidos. Recomendo muito!"</p>
+              <p data-i18n="test.q3">"Levamos nosso cachorro e fomos super bem recebidos. Recomendo muito!"</p>
               <cite>— Juliana e Pedro, Fortaleza</cite>
             </blockquote>
           </div>
           <div class="slider__controls">
-            <button class="slider__btn" id="prevSlide" aria-label="Depoimento anterior">‹</button>
+            <button class="slider__btn" id="prevSlide" aria-label="Depoimento anterior" data-i18n-attr="aria-label:test.prev">‹</button>
             <div class="slider__dots" id="sliderDots"></div>
-            <button class="slider__btn" id="nextSlide" aria-label="Próximo depoimento">›</button>
+            <button class="slider__btn" id="nextSlide" aria-label="Próximo depoimento" data-i18n-attr="aria-label:test.next">›</button>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LOCALIZAÇÃO E PASSEIOS ===== -->
+    <!-- Textos de exemplo: revise distâncias, nomes e passeios com a pousada -->
+    <section class="section location" id="localizacao">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__tag" data-i18n="loc.tag">Localização</p>
+          <h2 data-i18n="loc.title">Como chegar e o que fazer</h2>
+          <p class="section__intro" data-i18n="loc.intro">Estamos no Centro, a 50 metros da praia e perto dos principais passeios da região.</p>
+        </div>
+
+        <div class="location__grid">
+          <div class="location__col">
+            <h3 data-i18n="loc.how">Como chegar</h3>
+            <ul class="location__list">
+              <li><span class="location__icon" aria-hidden="true">✈️</span><div><strong data-i18n="loc.airport">Aeroporto</strong><span data-i18n="loc.airport.d">35 km · cerca de 40 min de carro. Fazemos transfer sob consulta.</span></div></li>
+              <li><span class="location__icon" aria-hidden="true">🚌</span><div><strong data-i18n="loc.bus">Rodoviária</strong><span data-i18n="loc.bus.d">8 km · cerca de 15 min de táxi ou aplicativo.</span></div></li>
+              <li><span class="location__icon" aria-hidden="true">🛍️</span><div><strong data-i18n="loc.center">Centro e restaurantes</strong><span data-i18n="loc.center.d">5 min a pé · mercados, farmácias e a orla gastronômica.</span></div></li>
+            </ul>
+          </div>
+
+          <div class="location__col">
+            <h3 data-i18n="loc.tours">Passeios na região</h3>
+            <ul class="location__list">
+              <li><span class="location__icon" aria-hidden="true">🏝️</span><div><strong data-i18n="loc.t1">Passeio de barco às ilhas</strong><span data-i18n="loc.t1.d">Saída do píer a 10 min da pousada · dia inteiro.</span></div></li>
+              <li><span class="location__icon" aria-hidden="true">🚙</span><div><strong data-i18n="loc.t2">Buggy pelas dunas e lagoas</strong><span data-i18n="loc.t2.d">Inclui parada na Lagoa Azul, que dá nome à pousada.</span></div></li>
+              <li><span class="location__icon" aria-hidden="true">🤿</span><div><strong data-i18n="loc.t3">Mergulho nas piscinas naturais</strong><span data-i18n="loc.t3.d">Melhor na maré baixa · ajudamos a ver a tábua de marés.</span></div></li>
+              <li><span class="location__icon" aria-hidden="true">🌅</span><div><strong data-i18n="loc.t4">Pôr do sol no mirante</strong><span data-i18n="loc.t4.d">A 15 min de carro · imperdível no fim da tarde.</span></div></li>
+            </ul>
+            <p class="location__tip" data-i18n="loc.tip">💡 Nossa recepção ajuda a reservar passeios com guias locais de confiança.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PERGUNTAS FREQUENTES ===== -->
+    <!-- Textos de exemplo: confirme as políticas com a pousada -->
+    <section class="section faq" id="duvidas">
+      <div class="container faq__container">
+        <div class="section__header">
+          <p class="section__tag" data-i18n="faq.tag">Dúvidas</p>
+          <h2 data-i18n="faq.title">Perguntas frequentes</h2>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq__item">
+            <summary data-i18n="faq.q1">Quais os horários de check-in e check-out?</summary>
+            <p data-i18n="faq.a1">O check-in é a partir das 14h e o check-out até as 12h. Se precisar chegar mais cedo ou sair mais tarde, fale com a gente: sempre que possível, liberamos sem custo.</p>
+          </details>
+          <details class="faq__item">
+            <summary data-i18n="faq.q2">O café da manhã está incluso?</summary>
+            <p data-i18n="faq.a2">Sim! O café da manhã regional está incluso em todas as diárias e é servido das 7h às 10h.</p>
+          </details>
+          <details class="faq__item">
+            <summary data-i18n="faq.q3">Posso levar meu pet?</summary>
+            <p data-i18n="faq.a3">Pode sim! Aceitamos pets de pequeno e médio porte. Só pedimos que avise na hora da reserva.</p>
+          </details>
+          <details class="faq__item">
+            <summary data-i18n="faq.q4">Crianças pagam?</summary>
+            <p data-i18n="faq.a4">Crianças de até 5 anos não pagam quando dormem na cama dos pais. A partir de 6 anos, contam como hóspede.</p>
+          </details>
+          <details class="faq__item">
+            <summary data-i18n="faq.q5">Quais as formas de pagamento?</summary>
+            <p data-i18n="faq.a5">Pix, cartão de débito e cartão de crédito em até 3x sem juros.</p>
+          </details>
+          <details class="faq__item">
+            <summary data-i18n="faq.q6">Como funciona a reserva?</summary>
+            <p data-i18n="faq.a6">Faça a simulação aqui no site e clique em "Solicitar reserva pelo WhatsApp". Confirmamos a disponibilidade e a reserva é garantida com um sinal de 30% via Pix.</p>
+          </details>
+          <details class="faq__item">
+            <summary data-i18n="faq.q7">Qual a política de cancelamento?</summary>
+            <p data-i18n="faq.a7">Cancelamentos com até 7 dias de antecedência têm o sinal devolvido integralmente. Depois desse prazo, o sinal pode ser usado como crédito para uma nova data em até 6 meses.</p>
+          </details>
+          <details class="faq__item">
+            <summary data-i18n="faq.q8">Os preços mudam na alta temporada?</summary>
+            <p data-i18n="faq.a8">Sim. Na alta temporada e nas férias de julho há um acréscimo na diária, e a simulação de reserva já calcula o valor certo para as suas datas. Feriados como Réveillon e Carnaval podem ter pacotes com mínimo de diárias.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -273,11 +417,11 @@
     <section class="section contact" id="contato">
       <div class="container contact__grid">
         <div class="contact__info">
-          <p class="section__tag">Fale conosco</p>
-          <h2>Contato</h2>
+          <p class="section__tag" data-i18n="contact.tag">Fale conosco</p>
+          <h2 data-i18n="contact.title">Contato</h2>
           <ul>
-            <li><strong>Endereço:</strong> Rua da Praia, 123 – Centro</li>
-            <li><strong>Telefone:</strong> <a href="tel:+550000000000">(00) 0000-0000</a></li>
+            <li><strong data-i18n="contact.address">Endereço:</strong> Rua da Praia, 123 – Centro</li>
+            <li><strong data-i18n="contact.phone">Telefone:</strong> <a href="tel:+550000000000">(00) 0000-0000</a></li>
             <li><strong>WhatsApp:</strong> <a href="#" data-social="whatsapp" target="_blank" rel="noopener">(00) 90000-0000</a></li>
             <li><strong>E-mail:</strong> <a href="mailto:contato@lagoaazul.com.br">contato@lagoaazul.com.br</a></li>
           </ul>
@@ -286,6 +430,7 @@
             <iframe
               src="https://www.google.com/maps?q=Rua+da+Praia,+123+-+Centro&output=embed"
               title="Mapa com a localização da pousada"
+              data-i18n-attr="title:contact.map"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
@@ -293,21 +438,21 @@
 
         <form class="contact__form" id="contactForm" novalidate>
           <div class="field">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" required>
+            <label for="nome" data-i18n="contact.name">Nome</label>
+            <input type="text" id="nome" name="nome" autocomplete="name" required>
             <small class="error"></small>
           </div>
           <div class="field">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" autocomplete="email" required>
             <small class="error"></small>
           </div>
           <div class="field">
-            <label for="mensagem">Mensagem</label>
+            <label for="mensagem" data-i18n="contact.message">Mensagem</label>
             <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
             <small class="error"></small>
           </div>
-          <button type="submit" class="btn" id="contactSubmit">Enviar mensagem</button>
+          <button type="submit" class="btn" id="contactSubmit" data-i18n="contact.submit">Enviar mensagem</button>
           <p class="form-success" id="contactSuccess" aria-live="polite"></p>
         </form>
       </div>
@@ -320,40 +465,56 @@
     <div class="container footer__inner">
       <a href="#inicio" class="logo">Lagoa <span>Azul</span></a>
       <!-- Links configurados no topo do js/script.js -->
-      <nav class="footer__social" aria-label="Redes sociais">
+      <nav class="footer__social" aria-label="Redes sociais" data-i18n-attr="aria-label:footer.social">
         <a href="#" data-social="instagram" target="_blank" rel="noopener">Instagram</a>
         <a href="#" data-social="facebook" target="_blank" rel="noopener">Facebook</a>
         <a href="#" data-social="whatsapp" target="_blank" rel="noopener">WhatsApp</a>
       </nav>
-      <p>&copy; <span id="year"></span> Pousada Lagoa Azul. Todos os direitos reservados.</p>
+      <p>&copy; <span id="year"></span> Pousada Lagoa Azul. <span data-i18n="footer.rights">Todos os direitos reservados.</span></p>
     </div>
   </footer>
 
+  <!-- Barra de reserva fixa (só no celular) -->
+  <div class="mobile-bar" id="mobileBar" aria-hidden="true">
+    <p class="mobile-bar__price"><small data-i18n="rooms.from">a partir de</small><strong id="mobileBarPrice">R$ 250</strong><span data-i18n="rooms.night">/noite</span></p>
+    <a href="#reserva" class="btn btn--small" tabindex="-1" data-i18n="nav.book">Reservar</a>
+  </div>
+
   <!-- Botões flutuantes das redes sociais (links configurados no topo do js/script.js) -->
-  <div class="social-float" role="group" aria-label="Fale conosco nas redes sociais">
-    <a href="#" class="social-float__btn social-float__btn--instagram" data-social="instagram" target="_blank" rel="noopener" aria-label="Instagram da pousada">
+  <div class="social-float" role="group" aria-label="Fale conosco nas redes sociais" data-i18n-attr="aria-label:float.group">
+    <a href="#" class="social-float__btn social-float__btn--instagram" data-social="instagram" target="_blank" rel="noopener" aria-label="Instagram da pousada" data-i18n-attr="aria-label:float.instagram">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>
     </a>
-    <a href="#" class="social-float__btn social-float__btn--facebook" data-social="facebook" target="_blank" rel="noopener" aria-label="Facebook da pousada">
+    <a href="#" class="social-float__btn social-float__btn--facebook" data-social="facebook" target="_blank" rel="noopener" aria-label="Facebook da pousada" data-i18n-attr="aria-label:float.facebook">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
     </a>
-    <a href="#" class="social-float__btn social-float__btn--whatsapp" data-social="whatsapp" target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp">
+    <a href="#" class="social-float__btn social-float__btn--whatsapp" data-social="whatsapp" target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp" data-i18n-attr="aria-label:float.whatsapp">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-      <span class="social-float__label">Fale conosco</span>
+      <span class="social-float__label" data-i18n="float.label">Fale conosco</span>
     </a>
   </div>
 
   <!-- Botão voltar ao topo -->
-  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">↑</button>
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo" data-i18n-attr="aria-label:top">↑</button>
 
   <!-- Lightbox da galeria -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto da galeria" aria-hidden="true">
-    <button class="lightbox__close" id="lightboxClose" aria-label="Fechar">×</button>
-    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Foto anterior">‹</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto da galeria" data-i18n-attr="aria-label:lb.label" aria-hidden="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Fechar" data-i18n-attr="aria-label:lb.close">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Foto anterior" data-i18n-attr="aria-label:lb.prev">‹</button>
     <div class="lightbox__content" id="lightboxContent"></div>
-    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Próxima foto">›</button>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Próxima foto" data-i18n-attr="aria-label:lb.next">›</button>
   </div>
 
+  <!-- Aviso de cookies (só aparece se o Google Analytics estiver configurado em js/script.js) -->
+  <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Aviso de cookies" data-i18n-attr="aria-label:cookie.label" hidden>
+    <p data-i18n="cookie.text">Usamos cookies para entender como o site é usado e melhorar sua experiência. Você aceita?</p>
+    <div class="cookie-banner__actions">
+      <button type="button" class="btn btn--small btn--ghost" id="cookieReject" data-i18n="cookie.reject">Recusar</button>
+      <button type="button" class="btn btn--small" id="cookieAccept" data-i18n="cookie.accept">Aceitar</button>
+    </div>
+  </div>
+
+  <script src="js/i18n.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

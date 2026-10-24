@@ -17,23 +17,130 @@ const FACEBOOK = 'https://www.facebook.com/';
 const FORMSPREE_ID = '';
 const EMAIL_CONTATO = 'contato@lagoaazul.com.br';
 
+// Google Analytics 4: cole o ID da propriedade (ex.: 'G-ABC123XYZ').
+// Enquanto estiver vazio, nada é medido e o aviso de cookies não aparece.
+const GA_ID = '';
+
+// Preço base por noite (baixa temporada) e capacidade de cada quarto
+const PRECOS = { standard: 250, luxo: 380, suite: 560 };
+const CAPACIDADE = { standard: 2, luxo: 3, suite: 4 };
+
+// Temporadas com acréscimo no preço (datas no formato 'MM-DD', valem todo ano).
+// Para criar uma nova, adicione aqui e coloque o nome dela em js/i18n.js ('season.<id>').
+const TEMPORADAS = [
+  { id: 'alta', inicio: '12-15', fim: '02-28', acrescimo: 30 }, // +30%
+  { id: 'julho', inicio: '07-01', fim: '07-31', acrescimo: 15 } // +15%
+];
+
 // Respeita a preferência do sistema por menos animação
 const REDUZ_MOVIMENTO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.addEventListener('DOMContentLoaded', () => {
+  initIdioma();
   initRedesSociais();
   initHeader();
   initMenuMobile();
   initActiveLink();
   initBooking();
+  initTemporadas();
+  initCarrosseis();
   initCounters();
   initGallery();
   initSlider();
   initContactForm();
   initBackToTop();
+  initMobileBar();
   initReveal();
+  initAnalytics();
   document.getElementById('year').textContent = new Date().getFullYear();
 });
+
+/* ---------- Idiomas (PT / EN / ES) ---------- */
+const IDIOMAS = { pt: 'pt-BR', en: 'en', es: 'es' };
+let idioma = 'pt';
+const textosOriginais = new Map(); // português, lido do próprio HTML
+const atributosOriginais = new WeakMap(); // elemento -> { atributo: texto em português }
+
+// Traduz uma chave, trocando {variáveis} pelos valores informados
+function t(chave, vars = {}) {
+  const texto = I18N[idioma][chave] ?? textosOriginais.get(chave) ?? I18N.pt[chave] ?? chave;
+  return texto.replace(/\{(\w+)\}/g, (_, nome) => vars[nome] ?? '');
+}
+
+function initIdioma() {
+  // Guarda os textos em português que estão no HTML
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.dataset.original = el.innerHTML;
+    if (!textosOriginais.has(el.dataset.i18n)) textosOriginais.set(el.dataset.i18n, el.innerHTML);
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const originais = {};
+    lerAtributosI18n(el).forEach(([attr, chave]) => {
+      originais[attr] = el.getAttribute(attr) || '';
+      if (!textosOriginais.has(chave)) textosOriginais.set(chave, originais[attr]);
+    });
+    atributosOriginais.set(el, originais);
+  });
+
+  // Ordem de escolha: ?lang= na URL > escolha anterior > idioma do navegador > português
+  const daUrl = new URLSearchParams(location.search).get('lang');
+  const salvo = lerStorage('idioma');
+  const navegador = (navigator.language || '').slice(0, 2);
+  const escolhido = [daUrl, salvo, navegador].find(l => l && IDIOMAS[l]) || 'pt';
+  aplicarIdioma(escolhido);
+
+  document.querySelectorAll('[data-lang]').forEach(btn =>
+    btn.addEventListener('click', () => {
+      aplicarIdioma(btn.dataset.lang);
+      salvarStorage('idioma', btn.dataset.lang);
+
+      // Mantém o idioma no endereço, para quem compartilhar o link
+      const url = new URL(location.href);
+      if (btn.dataset.lang === 'pt') url.searchParams.delete('lang');
+      else url.searchParams.set('lang', btn.dataset.lang);
+      history.replaceState(null, '', url);
+    })
+  );
+}
+
+// "alt:chave, aria-label:outra" -> [['alt', 'chave'], ['aria-label', 'outra']]
+function lerAtributosI18n(el) {
+  return el.dataset.i18nAttr.split(',').map(par => par.trim().split(':'));
+}
+
+function aplicarIdioma(lang) {
+  idioma = lang;
+  const dic = I18N[lang];
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.innerHTML = lang === 'pt' ? el.dataset.original : (dic[el.dataset.i18n] ?? el.dataset.original);
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const originais = atributosOriginais.get(el);
+    lerAtributosI18n(el).forEach(([attr, chave]) => {
+      el.setAttribute(attr, lang === 'pt' ? originais[attr] : (dic[chave] ?? originais[attr]));
+    });
+  });
+
+  document.documentElement.lang = IDIOMAS[lang];
+  document.title = t('meta.title');
+  document.querySelector('meta[name="description"]').content = t('meta.description');
+  document.querySelectorAll('[data-lang]').forEach(btn =>
+    btn.setAttribute('aria-pressed', btn.dataset.lang === lang)
+  );
+
+  // Avisa as outras partes do site para atualizarem textos gerados pelo JS
+  document.dispatchEvent(new Event('idioma'));
+}
+
+/* ---------- Armazenamento local (pode falhar em modo privado) ---------- */
+function lerStorage(chave) {
+  try { return localStorage.getItem(chave); } catch { return null; }
+}
+
+function salvarStorage(chave, valor) {
+  try { localStorage.setItem(chave, valor); } catch { /* sem armazenamento: segue sem lembrar */ }
+}
 
 /* ---------- Links das redes sociais usam os dados configurados ---------- */
 function initRedesSociais() {
@@ -44,6 +151,7 @@ function initRedesSociais() {
   };
   document.querySelectorAll('[data-social]').forEach(link => {
     link.href = links[link.dataset.social];
+    link.addEventListener('click', () => registrarEvento(`clique_${link.dataset.social}`));
   });
 }
 
@@ -64,10 +172,11 @@ function initMenuMobile() {
     nav.classList.toggle('is-open', open);
     toggle.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', open);
-    toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    toggle.setAttribute('aria-label', open ? t('msg.menuClose') : t('msg.menuOpen'));
   };
 
   toggle.addEventListener('click', () => definir(!nav.classList.contains('is-open')));
+  document.addEventListener('idioma', () => definir(nav.classList.contains('is-open')));
 
   // Fecha o menu ao clicar em um link, fora dele ou com Esc
   nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => definir(false)));
@@ -102,9 +211,18 @@ function initActiveLink() {
 }
 
 /* ---------- Formulário de reserva ---------- */
-const PRECOS = { standard: 250, luxo: 380, suite: 560 };
-const NOMES = { standard: 'Standard', luxo: 'Luxo', suite: 'Suíte Master' };
-const CAPACIDADE = { standard: 2, luxo: 3, suite: 4 };
+function nomeQuarto(tipo) {
+  return tipo === 'standard' ? 'Standard' : t(`room.${tipo}`);
+}
+
+function temporadaDe(iso) {
+  const mesDia = iso.slice(5);
+  return TEMPORADAS.find(({ inicio, fim }) =>
+    inicio <= fim
+      ? mesDia >= inicio && mesDia <= fim
+      : mesDia >= inicio || mesDia <= fim // atravessa a virada do ano
+  );
+}
 
 function initBooking() {
   const form = document.getElementById('bookingForm');
@@ -132,46 +250,70 @@ function initBooking() {
     })
   );
 
+  // O resultado fica no idioma antigo se o visitante trocar: melhor limpar
+  document.addEventListener('idioma', () => showResult(''));
+
   form.addEventListener('submit', e => {
     e.preventDefault();
 
-    if (!checkin.value || !checkout.value) {
-      return showResult('Selecione as datas de check-in e check-out.', true);
-    }
-
-    if (checkin.value < hoje) {
-      return showResult('A data de check-in não pode estar no passado.', true);
-    }
+    if (!checkin.value || !checkout.value) return showResult(t('msg.errDates'), true);
+    if (checkin.value < hoje) return showResult(t('msg.errPast'), true);
 
     const noites = Math.round((new Date(checkout.value) - new Date(checkin.value)) / 86400000);
-    if (noites <= 0) {
-      return showResult('O check-out deve ser depois do check-in.', true);
-    }
+    if (noites <= 0) return showResult(t('msg.errOrder'), true);
 
+    const quarto = tipo.value;
     const qtd = +hospedes.value;
-    if (qtd > CAPACIDADE[tipo.value]) {
-      return showResult(
-        `O quarto ${NOMES[tipo.value]} acomoda até ${CAPACIDADE[tipo.value]} pessoas. Escolha outro quarto.`,
-        true
-      );
+    if (qtd > CAPACIDADE[quarto]) {
+      return showResult(t('msg.errCapacity', { room: nomeQuarto(quarto), n: CAPACIDADE[quarto] }), true);
     }
 
-    const total = noites * PRECOS[tipo.value];
-    showResult(
-      `${NOMES[tipo.value]} · ${noites} ${noites === 1 ? 'noite' : 'noites'} · Total estimado: ${formatarMoeda(total)}`
+    // Soma noite a noite, aplicando o acréscimo da temporada de cada data
+    let total = 0;
+    const noitesPorTemporada = {};
+    for (let i = 0; i < noites; i++) {
+      const temporada = temporadaDe(somarDias(checkin.value, i));
+      total += PRECOS[quarto] * (1 + (temporada ? temporada.acrescimo / 100 : 0));
+      if (temporada) noitesPorTemporada[temporada.id] = (noitesPorTemporada[temporada.id] || 0) + 1;
+    }
+    total = Math.round(total);
+
+    const palavraNoites = n => (n === 1 ? t('msg.night') : t('msg.nights'));
+    showResult(`${nomeQuarto(quarto)} · ${noites} ${palavraNoites(noites)} · ${t('msg.total')}: ${formatarMoeda(total)}`);
+
+    const detalhes = Object.entries(noitesPorTemporada).map(([id, n]) =>
+      t('msg.seasonIncl', {
+        n,
+        nights: palavraNoites(n),
+        season: t(`season.${id}`),
+        p: TEMPORADAS.find(s => s.id === id).acrescimo
+      })
     );
+    if (detalhes.length) {
+      const nota = document.createElement('small');
+      nota.className = 'booking__season';
+      nota.textContent = `(${detalhes.join('; ')})`;
+      result.append(document.createElement('br'), nota);
+    }
+
+    registrarEvento('simulacao_reserva', { quarto, noites, valor: total });
 
     // Link para concluir a reserva pelo WhatsApp com os dados preenchidos
-    const texto =
-      `Olá! Gostaria de reservar o quarto ${NOMES[tipo.value]} ` +
-      `de ${formatarData(checkin.value)} a ${formatarData(checkout.value)} ` +
-      `para ${qtd} ${qtd === 1 ? 'hóspede' : 'hóspedes'}. Valor estimado: ${formatarMoeda(total)}.`;
+    const texto = t('msg.waText', {
+      room: nomeQuarto(quarto),
+      in: formatarData(checkin.value),
+      out: formatarData(checkout.value),
+      n: qtd,
+      guests: qtd === 1 ? t('msg.guest') : t('msg.guests'),
+      total: formatarMoeda(total)
+    });
     const link = document.createElement('a');
     link.className = 'btn btn--small';
     link.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
     link.target = '_blank';
     link.rel = 'noopener';
-    link.textContent = 'Solicitar reserva pelo WhatsApp';
+    link.textContent = t('msg.waBtn');
+    link.addEventListener('click', () => registrarEvento('clique_reserva_whatsapp', { quarto }));
     result.append(document.createElement('br'), link);
   });
 
@@ -181,8 +323,28 @@ function initBooking() {
   }
 }
 
-function formatarMoeda(valor) {
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+// Texto abaixo dos quartos explicando os acréscimos de cada temporada
+function initTemporadas() {
+  const nota = document.getElementById('seasonNote');
+
+  const montar = () => {
+    nota.replaceChildren(`${t('msg.seasonNote')} `);
+    TEMPORADAS.forEach(({ id, inicio, fim, acrescimo }, i) => {
+      if (i > 0) nota.append(' · ');
+      const nome = document.createElement('strong');
+      nome.textContent = t(`season.${id}`);
+      nota.append(nome, ` (${formatarMesDia(inicio)}–${formatarMesDia(fim)}) +${acrescimo}%`);
+    });
+  };
+
+  montar();
+  document.addEventListener('idioma', montar);
+}
+
+function formatarMoeda(valor, casas = 2) {
+  return valor.toLocaleString('pt-BR', {
+    style: 'currency', currency: 'BRL', minimumFractionDigits: casas, maximumFractionDigits: casas
+  });
 }
 
 // "AAAA-MM-DD" usando a data local do visitante
@@ -200,6 +362,71 @@ function somarDias(iso, dias) {
 // "AAAA-MM-DD" -> "DD/MM/AAAA"
 function formatarData(iso) {
   return iso.split('-').reverse().join('/');
+}
+
+// "MM-DD" -> "DD/MM"
+function formatarMesDia(mesDia) {
+  return mesDia.split('-').reverse().join('/');
+}
+
+/* ---------- Carrossel de fotos dos quartos ---------- */
+function initCarrosseis() {
+  document.querySelectorAll('[data-carousel]').forEach(carrossel => {
+    const track = carrossel.querySelector('.room-carousel__track');
+    const fotos = track.querySelectorAll('img');
+    if (fotos.length < 2) return;
+
+    const criarBotao = (classe, texto) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `room-carousel__btn ${classe}`;
+      btn.textContent = texto;
+      carrossel.appendChild(btn);
+      return btn;
+    };
+    const prev = criarBotao('room-carousel__btn--prev', '‹');
+    const next = criarBotao('room-carousel__btn--next', '›');
+
+    const dotsBox = document.createElement('div');
+    dotsBox.className = 'room-carousel__dots';
+    const dots = [...fotos].map((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.addEventListener('click', () => irPara(i));
+      dotsBox.appendChild(dot);
+      return dot;
+    });
+    carrossel.appendChild(dotsBox);
+
+    let atual = 0;
+    const irPara = i => {
+      atual = (i + fotos.length) % fotos.length;
+      track.scrollTo({ left: atual * track.clientWidth, behavior: REDUZ_MOVIMENTO ? 'auto' : 'smooth' });
+    };
+    prev.addEventListener('click', () => irPara(atual - 1));
+    next.addEventListener('click', () => irPara(atual + 1));
+
+    // Atualiza as bolinhas também quando o visitante desliza com o dedo
+    const marcar = () => {
+      atual = Math.round(track.scrollLeft / track.clientWidth);
+      dots.forEach((d, i) => d.setAttribute('aria-current', i === atual));
+    };
+    let agendado = false;
+    track.addEventListener('scroll', () => {
+      if (agendado) return;
+      agendado = true;
+      requestAnimationFrame(() => { marcar(); agendado = false; });
+    }, { passive: true });
+
+    const rotular = () => {
+      prev.setAttribute('aria-label', t('msg.carouselPrev'));
+      next.setAttribute('aria-label', t('msg.carouselNext'));
+      dots.forEach((d, i) => d.setAttribute('aria-label', t('msg.photo', { n: i + 1, total: fotos.length })));
+    };
+    rotular();
+    marcar();
+    document.addEventListener('idioma', rotular);
+  });
 }
 
 /* ---------- Contadores animados (seção Sobre) ---------- */
@@ -252,7 +479,6 @@ function initGallery() {
   itens.forEach((item, i) => {
     item.tabIndex = 0;
     item.setAttribute('role', 'button');
-    item.setAttribute('aria-label', `Ampliar foto: ${item.alt || i + 1}`);
     item.addEventListener('click', () => abrir(i));
     item.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -262,10 +488,16 @@ function initGallery() {
     });
   });
 
+  const rotular = () => itens.forEach(item => item.setAttribute('aria-label', t('msg.zoom', { alt: item.alt })));
+  rotular();
+  document.addEventListener('idioma', rotular);
+
   function mostrar(index) {
     atual = (index + itens.length) % itens.length;
     const item = itens[atual];
     const img = document.createElement('img');
+    img.srcset = item.srcset; // o navegador escolhe a versão grande
+    img.sizes = '90vw';
     img.src = item.src;
     img.alt = item.alt;
     const legenda = document.createElement('p');
@@ -295,6 +527,16 @@ function initGallery() {
   next.addEventListener('click', () => mostrar(atual + 1));
   lightbox.addEventListener('click', e => { if (e.target === lightbox) fechar(); });
 
+  // Deslizar o dedo para os lados troca a foto
+  let toqueX = null;
+  lightbox.addEventListener('touchstart', e => { toqueX = e.touches[0].clientX; }, { passive: true });
+  lightbox.addEventListener('touchend', e => {
+    if (toqueX === null) return;
+    const distancia = e.changedTouches[0].clientX - toqueX;
+    if (Math.abs(distancia) > 50) mostrar(atual + (distancia < 0 ? 1 : -1));
+    toqueX = null;
+  });
+
   document.addEventListener('keydown', e => {
     if (!lightbox.classList.contains('is-open')) return;
     if (e.key === 'Escape') fechar();
@@ -322,11 +564,14 @@ function initSlider() {
 
   slides.forEach((_, i) => {
     const dot = document.createElement('button');
-    dot.setAttribute('aria-label', `Ir para depoimento ${i + 1}`);
     dot.addEventListener('click', () => irPara(i));
     dotsContainer.appendChild(dot);
   });
   const dots = dotsContainer.querySelectorAll('button');
+
+  const rotular = () => dots.forEach((d, i) => d.setAttribute('aria-label', t('msg.dot', { n: i + 1 })));
+  rotular();
+  document.addEventListener('idioma', rotular);
 
   function irPara(index) {
     slides[atual].classList.remove('is-active');
@@ -359,16 +604,19 @@ function initSlider() {
   irPara(0);
 }
 
-/* ---------- Formulário de contato (validação) ---------- */
+/* ---------- Formulário de contato (validação e envio) ---------- */
 function initContactForm() {
   const form = document.getElementById('contactForm');
   const success = document.getElementById('contactSuccess');
+  const botao = document.getElementById('contactSubmit');
 
   const regras = {
-    nome: v => v.trim().length >= 3 || 'Informe seu nome (mínimo 3 letras).',
-    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) || 'Informe um e-mail válido.',
-    mensagem: v => v.trim().length >= 10 || 'A mensagem deve ter pelo menos 10 caracteres.'
+    nome: v => v.trim().length >= 3 || t('msg.errName'),
+    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) || t('msg.errEmail'),
+    mensagem: v => v.trim().length >= 10 || t('msg.errMessage')
   };
+
+  const temErro = campo => form.elements[campo].closest('.field').classList.contains('has-error');
 
   function validarCampo(campo) {
     const input = form.elements[campo];
@@ -383,20 +631,23 @@ function initContactForm() {
     return ok;
   }
 
-  // Revalida enquanto digita, mas só campos que já mostraram erro
-  Object.keys(regras).forEach(campo => {
-    const input = form.elements[campo];
-    input.addEventListener('input', () => {
-      if (input.closest('.field').classList.contains('has-error')) validarCampo(campo);
-    });
-  });
-
-  const botao = document.getElementById('contactSubmit');
-
   function aviso(msg, isError = false) {
     success.textContent = msg;
     success.classList.toggle('is-error', isError);
   }
+
+  // Revalida enquanto digita, mas só campos que já mostraram erro
+  Object.keys(regras).forEach(campo => {
+    form.elements[campo].addEventListener('input', () => {
+      if (temErro(campo)) validarCampo(campo);
+    });
+  });
+
+  // Ao trocar o idioma, refaz as mensagens que estão na tela
+  document.addEventListener('idioma', () => {
+    Object.keys(regras).filter(temErro).forEach(validarCampo);
+    aviso('');
+  });
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -413,16 +664,18 @@ function initContactForm() {
 
     // Sem Formspree configurado: abre o e-mail do visitante com a mensagem pronta
     if (!FORMSPREE_ID) {
-      const assunto = `Contato pelo site - ${nome.value.trim()}`;
+      const assunto = `${t('msg.mailSubject')} - ${nome.value.trim()}`;
       const corpo = `${mensagem.value.trim()}\n\n${nome.value.trim()}\n${email.value.trim()}`;
       window.location.href =
         `mailto:${EMAIL_CONTATO}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
-      aviso('Abrimos seu programa de e-mail com a mensagem pronta. É só enviar!');
+      aviso(t('msg.mailOpened'));
+      registrarEvento('contato_email');
       return;
     }
 
+    const textoBotao = botao.textContent;
     botao.disabled = true;
-    botao.textContent = 'Enviando...';
+    botao.textContent = t('msg.sending');
     try {
       const resposta = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST',
@@ -430,13 +683,14 @@ function initContactForm() {
         body: new FormData(form)
       });
       if (!resposta.ok) throw new Error(resposta.status);
-      aviso('Mensagem enviada! Responderemos em breve.');
+      aviso(t('msg.sent'));
       form.reset();
+      registrarEvento('contato_enviado');
     } catch {
-      aviso('Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.', true);
+      aviso(t('msg.sendErr'), true);
     } finally {
       botao.disabled = false;
-      botao.textContent = 'Enviar mensagem';
+      botao.textContent = textoBotao;
     }
   });
 }
@@ -453,12 +707,33 @@ function initBackToTop() {
   );
 }
 
+/* ---------- Barra de reserva fixa no celular ---------- */
+function initMobileBar() {
+  const barra = document.getElementById('mobileBar');
+  const reserva = document.getElementById('reserva');
+  document.getElementById('mobileBarPrice').textContent = formatarMoeda(Math.min(...Object.values(PRECOS)), 0);
+
+  // Aparece depois do topo da página, mas some quando o formulário de reserva está na tela
+  let reservaVisivel = true;
+  const atualizar = () => {
+    const mostrar = window.scrollY > 600 && !reservaVisivel;
+    barra.classList.toggle('is-visible', mostrar);
+    document.body.classList.toggle('has-mobile-bar', mostrar);
+  };
+
+  new IntersectionObserver(([entry]) => {
+    reservaVisivel = entry.isIntersecting;
+    atualizar();
+  }).observe(reserva);
+  window.addEventListener('scroll', atualizar, { passive: true });
+}
+
 /* ---------- Animação de entrada das seções ---------- */
 function initReveal() {
   if (REDUZ_MOVIMENTO) return;
 
   const elementos = document.querySelectorAll(
-    '.section__header, .room-card, .amenity, .about__text, .about__image, .gallery__item, .contact__form'
+    '.section__header, .room-card, .amenity, .about__text, .about__image, .gallery__item, .contact__form, .location__col, .faq__item'
   );
   elementos.forEach(el => el.classList.add('reveal'));
 
@@ -472,4 +747,43 @@ function initReveal() {
   }, { threshold: 0.15 });
 
   elementos.forEach(el => observer.observe(el));
+}
+
+/* ---------- Google Analytics com consentimento (LGPD) ---------- */
+function initAnalytics() {
+  if (!GA_ID) return;
+
+  const banner = document.getElementById('cookieBanner');
+  const escolha = lerStorage('cookies');
+
+  if (escolha === 'aceito') return carregarAnalytics();
+  if (escolha === 'recusado') return;
+
+  banner.hidden = false;
+  document.getElementById('cookieAccept').addEventListener('click', () => {
+    salvarStorage('cookies', 'aceito');
+    banner.hidden = true;
+    carregarAnalytics();
+  });
+  document.getElementById('cookieReject').addEventListener('click', () => {
+    salvarStorage('cookies', 'recusado');
+    banner.hidden = true;
+  });
+}
+
+function carregarAnalytics() {
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID);
+}
+
+// Registra um clique ou ação (só funciona se o visitante aceitou os cookies)
+function registrarEvento(nome, dados = {}) {
+  if (window.gtag) window.gtag('event', nome, dados);
 }

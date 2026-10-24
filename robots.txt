@@ -1,0 +1,6 @@
+# Ao mudar para domínio próprio, troque o endereço do sitemap abaixo
+User-agent: *
+Allow: /
+Disallow: /tools/
+
+Sitemap: https://ottavvi.github.io/pousada-site/sitemap.xml

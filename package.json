@@ -1,0 +1,11 @@
+{
+  "name": "pousada-site",
+  "private": true,
+  "description": "Site da Pousada Lagoa Azul",
+  "scripts": {
+    "imagens": "node tools/otimizar-imagens.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}
