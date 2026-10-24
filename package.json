@@ -3,9 +3,13 @@
   "private": true,
   "description": "Site da Pousada Lagoa Azul",
   "scripts": {
-    "imagens": "node tools/otimizar-imagens.js"
+    "build": "node tools/build.js",
+    "dev": "node tools/build.js && node tools/servidor.js"
   },
   "devDependencies": {
     "sharp": "^0.33.5"
+  },
+  "dependencies": {
+    "qrcode-generator": "^2.0.4"
   }
 }

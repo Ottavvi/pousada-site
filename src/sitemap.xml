@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Modelo: o endereço vem de data/geral.json (site_url) -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>{{geral.site_url}}</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="{{geral.site_url}}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="{{geral.site_url}}?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="{{geral.site_url}}?lang=es"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

@@ -1,0 +1,15 @@
+{
+  "introducao": { "pt": "Estamos no Centro, a 50 metros da praia e perto dos principais passeios da região.", "en": "We are downtown, 50 meters from the beach and close to the best tours in the region.", "es": "Estamos en el Centro, a 50 metros de la playa y cerca de los principales paseos de la región." },
+  "como_chegar": [
+    { "icone": "✈️", "titulo": { "pt": "Aeroporto", "en": "Airport", "es": "Aeropuerto" }, "descricao": { "pt": "35 km · cerca de 40 min de carro. Fazemos transfer sob consulta.", "en": "35 km · about 40 min by car. Transfer available on request.", "es": "35 km · unos 40 min en auto. Ofrecemos traslado a pedido." } },
+    { "icone": "🚌", "titulo": { "pt": "Rodoviária", "en": "Bus station", "es": "Terminal de ómnibus" }, "descricao": { "pt": "8 km · cerca de 15 min de táxi ou aplicativo.", "en": "8 km · about 15 min by taxi or ride-hailing app.", "es": "8 km · unos 15 min en taxi o aplicación." } },
+    { "icone": "🛍️", "titulo": { "pt": "Centro e restaurantes", "en": "Downtown and restaurants", "es": "Centro y restaurantes" }, "descricao": { "pt": "5 min a pé · mercados, farmácias e a orla gastronômica.", "en": "5 min walk · markets, pharmacies and the seafront restaurants.", "es": "5 min a pie · supermercados, farmacias y la costanera gastronómica." } }
+  ],
+  "passeios": [
+    { "icone": "🏝️", "titulo": { "pt": "Passeio de barco às ilhas", "en": "Boat trip to the islands", "es": "Paseo en barco a las islas" }, "descricao": { "pt": "Saída do píer a 10 min da pousada · dia inteiro.", "en": "Departs from the pier 10 min away · full day.", "es": "Sale del muelle a 10 min de la posada · día completo." } },
+    { "icone": "🚙", "titulo": { "pt": "Buggy pelas dunas e lagoas", "en": "Buggy ride through dunes and lagoons", "es": "Buggy por dunas y lagunas" }, "descricao": { "pt": "Inclui parada na Lagoa Azul, que dá nome à pousada.", "en": "Includes a stop at Lagoa Azul, the lagoon our guesthouse is named after.", "es": "Incluye parada en la Lagoa Azul, que da nombre a la posada." } },
+    { "icone": "🤿", "titulo": { "pt": "Mergulho nas piscinas naturais", "en": "Snorkeling in the natural pools", "es": "Snorkel en las piscinas naturales" }, "descricao": { "pt": "Melhor na maré baixa · ajudamos a ver a tábua de marés.", "en": "Best at low tide · we help you check the tide table.", "es": "Mejor con marea baja · te ayudamos a ver la tabla de mareas." } },
+    { "icone": "🌅", "titulo": { "pt": "Pôr do sol no mirante", "en": "Sunset at the viewpoint", "es": "Atardecer en el mirador" }, "descricao": { "pt": "A 15 min de carro · imperdível no fim da tarde.", "en": "15 min by car · a must at the end of the day.", "es": "A 15 min en auto · imperdible al final de la tarde." } }
+  ],
+  "dica": { "pt": "💡 Nossa recepção ajuda a reservar passeios com guias locais de confiança.", "en": "💡 Our front desk can book tours with trusted local guides.", "es": "💡 Nuestra recepción te ayuda a reservar paseos con guías locales de confianza." }
+}

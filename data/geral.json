@@ -1,0 +1,25 @@
+{
+  "site_url": "https://ottavvi.github.io/pousada-site/",
+  "contato": {
+    "whatsapp": "5500900000000",
+    "whatsapp_exibicao": "(00) 90000-0000",
+    "telefone": "+550000000000",
+    "telefone_exibicao": "(00) 0000-0000",
+    "email": "contato@lagoaazul.com.br",
+    "endereco": "Rua da Praia, 123 – Centro",
+    "cidade": "Cidade",
+    "uf": "UF",
+    "instagram": "https://www.instagram.com/",
+    "facebook": "https://www.facebook.com/"
+  },
+  "pix": {
+    "chave": "",
+    "nome": "",
+    "cidade": "",
+    "sinal_percentual": 30
+  },
+  "integracoes": {
+    "formspree_id": "",
+    "google_analytics": ""
+  }
+}

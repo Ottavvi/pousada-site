@@ -1,0 +1,6 @@
+{
+  "temporadas": [
+    { "nome": { "pt": "Alta temporada", "en": "High season", "es": "Temporada alta" }, "inicio": "15/12", "fim": "28/02", "acrescimo": 30 },
+    { "nome": { "pt": "Férias de julho", "en": "July holidays", "es": "Vacaciones de julio" }, "inicio": "01/07", "fim": "31/07", "acrescimo": 15 }
+  ]
+}

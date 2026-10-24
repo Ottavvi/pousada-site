@@ -1,0 +1,11 @@
+{
+  "nota": "",
+  "total": "",
+  "link_google": "",
+  "link_avaliar": "",
+  "depoimentos": [
+    { "texto": { "pt": "Lugar maravilhoso, equipe atenciosa e o café da manhã é impecável. Voltaremos!", "en": "Wonderful place, attentive staff and the breakfast is flawless. We'll be back!", "es": "Un lugar maravilloso, personal atento y el desayuno es impecable. ¡Volveremos!" }, "autor": "Ana Paula, Recife" },
+    { "texto": { "pt": "Quarto limpo, confortável e a vista da suíte é de tirar o fôlego.", "en": "Clean, comfortable room and the view from the suite is breathtaking.", "es": "Habitación limpia, cómoda y la vista de la suite te deja sin aliento." }, "autor": "Ricardo M., São Paulo" },
+    { "texto": { "pt": "Levamos nosso cachorro e fomos super bem recebidos. Recomendo muito!", "en": "We brought our dog and were warmly welcomed. Highly recommended!", "es": "Llevamos a nuestro perro y nos recibieron súper bien. ¡Muy recomendable!" }, "autor": "Juliana e Pedro, Fortaleza" }
+  ]
+}

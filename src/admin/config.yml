@@ -1,0 +1,315 @@
+# Painel de edição da Pousada Lagoa Azul (Sveltia CMS)
+# Cada "Salvar" grava no GitHub e o site é remontado sozinho em ~1 minuto.
+
+backend:
+  name: github
+  repo: Ottavvi/pousada-site
+  branch: main
+
+site_url: https://ottavvi.github.io/pousada-site/
+display_url: https://ottavvi.github.io/pousada-site/
+
+media_folder: img/originais
+public_folder: img/originais
+
+collections:
+  - name: pousada
+    label: Pousada
+    editor:
+      preview: false
+    files:
+
+      # ---------- DATAS OCUPADAS ----------
+      - name: disponibilidade
+        label: 📅 Datas ocupadas
+        file: data/disponibilidade.json
+        description: Marque aqui as noites já reservadas. O site bloqueia essas datas no calendário e na simulação.
+        fields:
+          - label: Períodos ocupados
+            name: bloqueios
+            widget: list
+            label_singular: período
+            summary: "{{quarto}}: {{inicio}} a {{fim}} {{obs}}"
+            fields:
+              - label: Quarto
+                name: quarto
+                widget: select
+                default: todos
+                options:
+                  - { label: Todos os quartos (pousada lotada), value: todos }
+                  - { label: Standard, value: standard }
+                  - { label: Luxo, value: luxo }
+                  - { label: Suíte Master, value: suite }
+              - label: Primeira noite ocupada
+                name: inicio
+                widget: datetime
+                time_format: false
+                date_format: DD/MM/YYYY
+                format: YYYY-MM-DD
+              - label: Última noite ocupada
+                name: fim
+                widget: datetime
+                time_format: false
+                date_format: DD/MM/YYYY
+                format: YYYY-MM-DD
+                hint: "Exemplo: hóspede chega dia 10 e sai dia 13 → primeira noite 10, última noite 12."
+              - label: Observação (só aparece aqui no painel)
+                name: obs
+                widget: string
+                required: false
+
+      # ---------- PREÇOS E QUARTOS ----------
+      - name: quartos
+        label: 🛏️ Quartos (preços e fotos)
+        file: data/quartos.json
+        description: Preço da diária na baixa temporada, capacidade e fotos de cada quarto.
+        fields:
+          - label: Standard
+            name: standard
+            widget: object
+            collapsed: true
+            fields: &camposQuarto
+              - { label: Preço da diária (R$), name: preco, widget: number, value_type: int, min: 0 }
+              - { label: Capacidade (pessoas), name: capacidade, widget: number, value_type: int, min: 1, max: 10 }
+              - label: Fotos (a primeira é a principal)
+                name: fotos
+                widget: list
+                label_singular: foto
+                fields:
+                  - { label: Foto, name: imagem, widget: image, hint: "De preferência na horizontal, com pelo menos 1200px de largura." }
+                  - &traduzido
+                    label: Descrição da foto (para cegos e para o Google)
+                    name: alt
+                    widget: object
+                    collapsed: false
+                    fields:
+                      - { label: Português, name: pt, widget: string }
+                      - { label: English, name: en, widget: string, required: false }
+                      - { label: Español, name: es, widget: string, required: false }
+          - { label: Luxo, name: luxo, widget: object, collapsed: true, fields: *camposQuarto }
+          - { label: Suíte Master, name: suite, widget: object, collapsed: true, fields: *camposQuarto }
+
+      # ---------- TEMPORADAS ----------
+      - name: temporadas
+        label: 💰 Temporadas (acréscimo no preço)
+        file: data/temporadas.json
+        description: Períodos do ano em que a diária fica mais cara. Valem todos os anos.
+        fields:
+          - label: Temporadas
+            name: temporadas
+            widget: list
+            label_singular: temporada
+            summary: "{{nome.pt}}: {{inicio}} a {{fim}} (+{{acrescimo}}%)"
+            fields:
+              - label: Nome
+                name: nome
+                widget: object
+                collapsed: false
+                fields:
+                  - { label: Português, name: pt, widget: string }
+                  - { label: English, name: en, widget: string, required: false }
+                  - { label: Español, name: es, widget: string, required: false }
+              - { label: Início (DD/MM), name: inicio, widget: string, pattern: ['^\d{2}/\d{2}$', 'Use o formato DD/MM, por exemplo 15/12'] }
+              - { label: Fim (DD/MM), name: fim, widget: string, pattern: ['^\d{2}/\d{2}$', 'Use o formato DD/MM, por exemplo 28/02'] }
+              - { label: Acréscimo (%), name: acrescimo, widget: number, value_type: int, min: 0, max: 300 }
+
+      # ---------- PACOTES ----------
+      - name: pacotes
+        label: 🎁 Pacotes e promoções
+        file: data/pacotes.json
+        description: Pacotes que aparecem no site. Com data de validade, o pacote some sozinho depois dela.
+        fields:
+          - label: Pacotes
+            name: pacotes
+            widget: list
+            label_singular: pacote
+            summary: "{{titulo.pt}} – R$ {{preco}}"
+            fields:
+              - { label: Mostrar no site, name: ativo, widget: boolean, default: true }
+              - label: Título
+                name: titulo
+                widget: object
+                collapsed: false
+                fields:
+                  - { label: Português, name: pt, widget: string }
+                  - { label: English, name: en, widget: string, required: false }
+                  - { label: Español, name: es, widget: string, required: false }
+              - label: Descrição
+                name: descricao
+                widget: object
+                collapsed: false
+                fields:
+                  - { label: Português, name: pt, widget: text }
+                  - { label: English, name: en, widget: text, required: false }
+                  - { label: Español, name: es, widget: text, required: false }
+              - { label: Preço total do pacote (R$), name: preco, widget: number, value_type: int, min: 0 }
+              - { label: Número de noites, name: noites, widget: number, value_type: int, min: 1 }
+              - label: Válido até (deixe vazio se não vence)
+                name: validade
+                widget: datetime
+                time_format: false
+                date_format: DD/MM/YYYY
+                format: YYYY-MM-DD
+                required: false
+              - { label: Foto, name: imagem, widget: image }
+
+      # ---------- PERGUNTAS FREQUENTES ----------
+      - name: faq
+        label: ❓ Perguntas frequentes
+        file: data/faq.json
+        fields:
+          - label: Perguntas
+            name: perguntas
+            widget: list
+            label_singular: pergunta
+            summary: "{{pergunta.pt}}"
+            fields:
+              - label: Pergunta
+                name: pergunta
+                widget: object
+                collapsed: false
+                fields:
+                  - { label: Português, name: pt, widget: string }
+                  - { label: English, name: en, widget: string, required: false }
+                  - { label: Español, name: es, widget: string, required: false }
+              - label: Resposta
+                name: resposta
+                widget: object
+                collapsed: false
+                fields:
+                  - { label: Português, name: pt, widget: text }
+                  - { label: English, name: en, widget: text, required: false }
+                  - { label: Español, name: es, widget: text, required: false }
+
+      # ---------- LOCALIZAÇÃO E PASSEIOS ----------
+      - name: localizacao
+        label: 🗺️ Localização e passeios
+        file: data/localizacao.json
+        fields:
+          - label: Frase de introdução
+            name: introducao
+            widget: object
+            collapsed: false
+            fields:
+              - { label: Português, name: pt, widget: string }
+              - { label: English, name: en, widget: string, required: false }
+              - { label: Español, name: es, widget: string, required: false }
+          - label: Como chegar
+            name: como_chegar
+            widget: list
+            label_singular: item
+            summary: "{{icone}} {{titulo.pt}}"
+            fields: &camposLugar
+              - { label: Ícone (emoji), name: icone, widget: string, hint: "Ex.: ✈️ 🚌 🏝️ 🚙 🤿 🌅" }
+              - label: Título
+                name: titulo
+                widget: object
+                collapsed: false
+                fields:
+                  - { label: Português, name: pt, widget: string }
+                  - { label: English, name: en, widget: string, required: false }
+                  - { label: Español, name: es, widget: string, required: false }
+              - label: Descrição
+                name: descricao
+                widget: object
+                collapsed: false
+                fields:
+                  - { label: Português, name: pt, widget: string }
+                  - { label: English, name: en, widget: string, required: false }
+                  - { label: Español, name: es, widget: string, required: false }
+          - { label: Passeios na região, name: passeios, widget: list, label_singular: passeio, summary: "{{icone}} {{titulo.pt}}", fields: *camposLugar }
+          - label: Dica (opcional)
+            name: dica
+            widget: object
+            collapsed: false
+            fields:
+              - { label: Português, name: pt, widget: string, required: false }
+              - { label: English, name: en, widget: string, required: false }
+              - { label: Español, name: es, widget: string, required: false }
+
+      # ---------- AVALIAÇÕES ----------
+      - name: avaliacoes
+        label: ⭐ Avaliações
+        file: data/avaliacoes.json
+        description: Nota do Google (copie do Perfil da Empresa no Google) e depoimentos de hóspedes.
+        fields:
+          - { label: Nota no Google (ex. 4.9), name: nota, widget: string, required: false, hint: "Deixe vazio para não mostrar a nota." }
+          - { label: Número de avaliações, name: total, widget: string, required: false }
+          - { label: Link das avaliações no Google, name: link_google, widget: string, required: false, hint: "No Google Maps, abra a pousada > Avaliações > Compartilhar > copiar link." }
+          - { label: Link para deixar avaliação, name: link_avaliar, widget: string, required: false, hint: "No Perfil da Empresa: Pedir avaliações > copiar link." }
+          - label: Depoimentos
+            name: depoimentos
+            widget: list
+            label_singular: depoimento
+            summary: "{{autor}}"
+            fields:
+              - label: Texto
+                name: texto
+                widget: object
+                collapsed: false
+                fields:
+                  - { label: Português, name: pt, widget: text }
+                  - { label: English, name: en, widget: text, required: false }
+                  - { label: Español, name: es, widget: text, required: false }
+              - { label: Autor (nome e cidade), name: autor, widget: string }
+
+      # ---------- FOTOS ----------
+      - name: fotos
+        label: 📷 Fotos (capa, sobre e galeria)
+        file: data/fotos.json
+        fields:
+          - { label: Foto de capa (topo do site), name: capa, widget: image, hint: "Horizontal, com pelo menos 1920px de largura." }
+          - label: Foto da seção "Sobre nós"
+            name: sobre
+            widget: object
+            collapsed: false
+            fields:
+              - { label: Foto, name: imagem, widget: image }
+              - *traduzido
+          - label: Galeria
+            name: galeria
+            widget: list
+            label_singular: foto
+            summary: "{{alt.pt}}"
+            fields:
+              - { label: Foto, name: imagem, widget: image }
+              - *traduzido
+
+      # ---------- CONTATO E CONFIGURAÇÕES ----------
+      - name: geral
+        label: ⚙️ Contato, Pix e configurações
+        file: data/geral.json
+        fields:
+          - { label: Endereço do site, name: site_url, widget: string, hint: "Com https:// e terminando em /. Troque ao usar domínio próprio." }
+          - label: Contato
+            name: contato
+            widget: object
+            collapsed: false
+            fields:
+              - { label: WhatsApp (só números, com 55 e DDD), name: whatsapp, widget: string, pattern: ['^\d{12,13}$', 'Ex.: 5581999998888'] }
+              - { label: WhatsApp como aparece no site, name: whatsapp_exibicao, widget: string, hint: "Ex.: (81) 99999-8888" }
+              - { label: Telefone (com +55 e DDD), name: telefone, widget: string, hint: "Ex.: +558133334444" }
+              - { label: Telefone como aparece no site, name: telefone_exibicao, widget: string }
+              - { label: E-mail, name: email, widget: string }
+              - { label: Endereço, name: endereco, widget: string, hint: "Também é usado para mostrar o mapa." }
+              - { label: Cidade, name: cidade, widget: string }
+              - { label: Estado (sigla), name: uf, widget: string }
+              - { label: Link do Instagram, name: instagram, widget: string }
+              - { label: Link do Facebook, name: facebook, widget: string }
+          - label: Pix (pagamento do sinal)
+            name: pix
+            widget: object
+            collapsed: false
+            hint: "Com a chave preenchida, o site mostra o botão de pagar o sinal com QR Code."
+            fields:
+              - { label: Chave Pix, name: chave, widget: string, required: false, hint: "CNPJ, CPF, e-mail, celular (+55...) ou chave aleatória." }
+              - { label: Nome do recebedor (como no banco), name: nome, widget: string, required: false }
+              - { label: Cidade do recebedor, name: cidade, widget: string, required: false }
+              - { label: Sinal (%), name: sinal_percentual, widget: number, value_type: int, min: 1, max: 100, default: 30 }
+          - label: Integrações (opcional)
+            name: integracoes
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Código do Formspree, name: formspree_id, widget: string, required: false, hint: "Para o formulário de contato enviar direto. Crie em formspree.io." }
+              - { label: ID do Google Analytics, name: google_analytics, widget: string, required: false, hint: "Ex.: G-ABC123XYZ. Ativa a medição de visitas com aviso de cookies." }
