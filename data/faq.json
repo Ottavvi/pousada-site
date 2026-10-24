@@ -2,35 +2,35 @@
   "perguntas": [
     {
       "pergunta": { "pt": "Quais os horários de check-in e check-out?", "en": "What are the check-in and check-out times?", "es": "¿Cuáles son los horarios de check-in y check-out?" },
-      "resposta": { "pt": "O check-in é a partir das 14h e o check-out até as 12h. Se precisar chegar mais cedo ou sair mais tarde, fale com a gente: sempre que possível, liberamos sem custo.", "en": "Check-in is from 2 pm and check-out is until 12 pm. If you need to arrive earlier or leave later, just ask: whenever possible we allow it at no extra cost.", "es": "El check-in es a partir de las 14 h y el check-out hasta las 12 h. Si necesitás llegar antes o salir más tarde, avisanos: siempre que sea posible, lo permitimos sin costo." }
+      "resposta": { "pt": "O check-in é a partir das 14h e o check-out até as 13h.", "en": "Check-in is from 2 pm and check-out is until 1 pm.", "es": "El check-in es a partir de las 14 h y el check-out hasta las 13 h." }
     },
     {
       "pergunta": { "pt": "O café da manhã está incluso?", "en": "Is breakfast included?", "es": "¿El desayuno está incluido?" },
-      "resposta": { "pt": "Sim! O café da manhã regional está incluso em todas as diárias e é servido das 7h às 10h.", "en": "Yes! Our regional breakfast is included in every stay and served from 7 am to 10 am.", "es": "¡Sí! El desayuno regional está incluido en todas las tarifas y se sirve de 7 h a 10 h." }
+      "resposta": { "pt": "Não. As diárias não incluem café da manhã, mas você pode usar a nossa cozinha compartilhada para preparar suas refeições.", "en": "No. Breakfast is not included, but you are welcome to use our shared kitchen to prepare your meals.", "es": "No. Las tarifas no incluyen desayuno, pero podés usar nuestra cocina compartida para preparar tus comidas." }
     },
     {
-      "pergunta": { "pt": "Posso levar meu pet?", "en": "Can I bring my pet?", "es": "¿Puedo llevar a mi mascota?" },
-      "resposta": { "pt": "Pode sim! Aceitamos pets de pequeno e médio porte. Só pedimos que avise na hora da reserva.", "en": "Of course! We welcome small and medium-sized pets. Just let us know when booking.", "es": "¡Claro! Aceptamos mascotas de tamaño pequeño y mediano. Solo pedimos que lo avises al reservar." }
+      "pergunta": { "pt": "Tem cozinha para os hóspedes?", "en": "Is there a kitchen for guests?", "es": "¿Hay cocina para los huéspedes?" },
+      "resposta": { "pt": "Sim! Temos uma cozinha compartilhada que você pode usar quando quiser.", "en": "Yes! We have a shared kitchen you can use whenever you like.", "es": "¡Sí! Tenemos una cocina compartida que podés usar cuando quieras." }
     },
     {
       "pergunta": { "pt": "Crianças pagam?", "en": "Do children pay?", "es": "¿Los niños pagan?" },
-      "resposta": { "pt": "Crianças de até 5 anos não pagam quando dormem na cama dos pais. A partir de 6 anos, contam como hóspede.", "en": "Children up to 5 years old stay free when sharing their parents' bed. From 6 years old they count as a guest.", "es": "Los niños de hasta 5 años no pagan si duermen en la cama de los padres. A partir de los 6 años cuentan como huésped." }
+      "resposta": { "pt": "Crianças de até 6 anos não pagam. A partir de 7 anos, pagam como hóspede.", "en": "Children up to 6 years old stay free. From 7 years old, they pay as a guest.", "es": "Los niños de hasta 6 años no pagan. A partir de los 7 años, pagan como huésped." }
     },
     {
-      "pergunta": { "pt": "Quais as formas de pagamento?", "en": "Which payment methods do you accept?", "es": "¿Qué formas de pago aceptan?" },
-      "resposta": { "pt": "Pix, cartão de débito e cartão de crédito em até 3x sem juros.", "en": "Pix, debit card and credit card in up to 3 interest-free installments.", "es": "Pix, tarjeta de débito y tarjeta de crédito en hasta 3 cuotas sin interés." }
+      "pergunta": { "pt": "Posso levar meu pet?", "en": "Can I bring my pet?", "es": "¿Puedo llevar a mi mascota?" },
+      "resposta": { "pt": "Pode sim! Aceitamos pets.", "en": "Of course! Pets are welcome.", "es": "¡Claro! Aceptamos mascotas." }
+    },
+    {
+      "pergunta": { "pt": "Tem estacionamento?", "en": "Is there parking?", "es": "¿Hay estacionamiento?" },
+      "resposta": { "pt": "Sim, há estacionamento livre em frente à praia.", "en": "Yes, there is free parking in front of the beach.", "es": "Sí, hay estacionamiento libre frente a la playa." }
+    },
+    {
+      "pergunta": { "pt": "Os quartos têm ar-condicionado e Wi-Fi?", "en": "Do the rooms have air conditioning and Wi-Fi?", "es": "¿Las habitaciones tienen aire acondicionado y Wi-Fi?" },
+      "resposta": { "pt": "Sim, todos os quartos têm ar-condicionado, e o Wi-Fi é grátis.", "en": "Yes, all rooms have air conditioning, and Wi-Fi is free.", "es": "Sí, todas las habitaciones tienen aire acondicionado y el Wi-Fi es gratis." }
     },
     {
       "pergunta": { "pt": "Como funciona a reserva?", "en": "How does booking work?", "es": "¿Cómo funciona la reserva?" },
-      "resposta": { "pt": "Faça a simulação aqui no site e clique em \"Solicitar reserva pelo WhatsApp\". Confirmamos a disponibilidade e a reserva é garantida com um sinal de 30% via Pix.", "en": "Check the price here on the website and click \"Request booking via WhatsApp\". We confirm availability and your booking is secured with a 30% deposit.", "es": "Consultá el precio aquí en el sitio y hacé clic en \"Solicitar reserva por WhatsApp\". Confirmamos la disponibilidad y la reserva se garantiza con una seña del 30%." }
-    },
-    {
-      "pergunta": { "pt": "Qual a política de cancelamento?", "en": "What is the cancellation policy?", "es": "¿Cuál es la política de cancelación?" },
-      "resposta": { "pt": "Cancelamentos com até 7 dias de antecedência têm o sinal devolvido integralmente. Depois desse prazo, o sinal pode ser usado como crédito para uma nova data em até 6 meses.", "en": "Cancellations made up to 7 days in advance get a full deposit refund. After that, the deposit can be used as credit for a new date within 6 months.", "es": "Las cancelaciones con hasta 7 días de anticipación tienen la seña devuelta por completo. Después de ese plazo, la seña puede usarse como crédito para una nueva fecha dentro de 6 meses." }
-    },
-    {
-      "pergunta": { "pt": "Os preços mudam na alta temporada?", "en": "Do prices change in high season?", "es": "¿Los precios cambian en temporada alta?" },
-      "resposta": { "pt": "Sim. Na alta temporada e nas férias de julho há um acréscimo na diária, e a simulação de reserva já calcula o valor certo para as suas datas. Feriados como Réveillon e Carnaval podem ter pacotes com mínimo de diárias.", "en": "Yes. In high season and during the July holidays there is an extra charge per night, and the price check already calculates the right amount for your dates. Holidays such as New Year's Eve and Carnival may have packages with a minimum stay.", "es": "Sí. En temporada alta y en las vacaciones de julio hay un recargo en la tarifa, y la consulta de reserva ya calcula el valor correcto para tus fechas. Feriados como Año Nuevo y Carnaval pueden tener paquetes con estadía mínima." }
+      "resposta": { "pt": "Faça a simulação aqui no site e clique em \"Solicitar reserva pelo WhatsApp\". Confirmamos a disponibilidade e combinamos os detalhes com você.", "en": "Check the price here on the website and click \"Request booking via WhatsApp\". We confirm availability and arrange the details with you.", "es": "Consultá el precio aquí en el sitio y hacé clic en \"Solicitar reserva por WhatsApp\". Confirmamos la disponibilidad y coordinamos los detalles con vos." }
     }
   ]
 }

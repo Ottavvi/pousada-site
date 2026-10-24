@@ -255,7 +255,7 @@ function criarBlocos(dados, dimensoes, traducoes) {
       '@type': 'LodgingBusiness',
       name: 'Pousada Lagoa Azul',
       url: g.site_url,
-      description: 'Pousada à beira-mar com quartos confortáveis, café da manhã regional e atendimento acolhedor.',
+      description: 'Pousada de frente para o mar, com ambiente familiar, quartos com ar-condicionado, Wi-Fi grátis, cozinha compartilhada e estacionamento em frente à praia.',
       image: `${g.site_url}img/og.jpg`,
       telephone: g.contato.telefone,
       email: g.contato.email,
@@ -268,10 +268,10 @@ function criarBlocos(dados, dimensoes, traducoes) {
       },
       priceRange: `${moeda(Math.min(...precos))} - ${moeda(Math.max(...precos))}`,
       checkinTime: '14:00',
-      checkoutTime: '12:00',
+      checkoutTime: '13:00',
       petsAllowed: true,
       availableLanguage: ['pt-BR', 'en', 'es'],
-      amenityFeature: ['Piscina', 'Café da manhã incluso', 'Wi-Fi grátis', 'Estacionamento gratuito']
+      amenityFeature: ['Frente ao mar', 'Wi-Fi grátis', 'Ar-condicionado', 'Cozinha compartilhada', 'Estacionamento gratuito']
         .map(name => ({ '@type': 'LocationFeatureSpecification', name, value: true }))
     };
     if (dados.avaliacoes.nota && dados.avaliacoes.total) {
@@ -285,12 +285,25 @@ function criarBlocos(dados, dimensoes, traducoes) {
 
 /* ---------- Modelos ---------- */
 
+// Trechos que só entram no site se houver conteúdo: <!-- @se nome --> ... <!-- @fim -->
+function criarCondicoes(dados) {
+  const { depoimentos, nota, link_google: link } = dados.avaliacoes;
+  return {
+    avaliacoes: () => depoimentos.length > 0 || Boolean(nota && link)
+  };
+}
+
 // {{caminho.do.dado}}  ou  {{moeda:caminho}}  /  {{url:caminho}}
 // <!-- @bloco nome argumento -->
 function renderizar(modelo, dados, blocos) {
   const valor = caminho => caminho.split('.').reduce((obj, chave) => obj?.[chave], dados);
+  const condicoes = criarCondicoes(dados);
 
   return modelo
+    .replace(/<!-- @se ([\w-]+) -->([\s\S]*?)<!-- @fim -->/g, (_, nome, trecho) => {
+      if (!condicoes[nome]) erro(`Condição desconhecida no modelo: ${nome}`);
+      return condicoes[nome]() ? trecho : '';
+    })
     .replace(/<!-- @bloco ([\w-]+)(?: ([\w-]+))? -->/g, (_, nome, arg) => {
       if (!blocos[nome]) erro(`Bloco desconhecido no modelo: ${nome}`);
       return blocos[nome](arg);

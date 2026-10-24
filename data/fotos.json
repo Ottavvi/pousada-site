@@ -1,15 +1,61 @@
 {
   "capa": "img/originais/hero.jpg",
   "sobre": {
-    "imagem": "img/originais/sobre.jpg",
-    "alt": { "pt": "Área da piscina com espreguiçadeiras e a casa principal da pousada", "en": "Pool area with sun loungers and the guesthouse main building", "es": "Área de la piscina con reposeras y la casa principal de la posada" }
+    "imagem": "img/originais/galeria-praia.jpg",
+    "alt": {
+      "pt": "Vista aérea do mar de águas azuis",
+      "en": "Aerial view of the blue sea",
+      "es": "Vista aérea del mar de aguas azules"
+    }
   },
   "galeria": [
-    { "imagem": "img/originais/galeria-piscina.jpg", "alt": { "pt": "Piscina com deck de madeira de frente para o mar", "en": "Pool with wooden deck facing the sea", "es": "Piscina con deck de madera frente al mar" } },
-    { "imagem": "img/originais/galeria-jardim.jpg", "alt": { "pt": "Jardim tropical ao redor da piscina", "en": "Tropical garden around the pool", "es": "Jardín tropical alrededor de la piscina" } },
-    { "imagem": "img/originais/quarto-suite.jpg", "alt": { "pt": "Suíte Master", "en": "Master Suite", "es": "Suite Master" } },
-    { "imagem": "img/originais/galeria-cafe.jpg", "alt": { "pt": "Café da manhã servido na pousada", "en": "Breakfast served at the guesthouse", "es": "Desayuno servido en la posada" } },
-    { "imagem": "img/originais/galeria-praia.jpg", "alt": { "pt": "Vista aérea da praia de águas azuis", "en": "Aerial view of the blue-water beach", "es": "Vista aérea de la playa de aguas azules" } },
-    { "imagem": "img/originais/galeria-por-do-sol.jpg", "alt": { "pt": "Deck da piscina ao pôr do sol", "en": "Pool deck at sunset", "es": "Deck de la piscina al atardecer" } }
+    {
+      "imagem": "img/originais/hero.jpg",
+      "alt": {
+        "pt": "Praia em frente à pousada ao entardecer",
+        "en": "Beach in front of the guesthouse at sunset",
+        "es": "Playa frente a la posada al atardecer"
+      }
+    },
+    {
+      "imagem": "img/originais/galeria-praia.jpg",
+      "alt": {
+        "pt": "Vista aérea do mar de águas azuis",
+        "en": "Aerial view of the blue sea",
+        "es": "Vista aérea del mar de aguas azules"
+      }
+    },
+    {
+      "imagem": "img/originais/quarto-standard.jpg",
+      "alt": {
+        "pt": "Quarto Casal",
+        "en": "Double room",
+        "es": "Habitación Doble"
+      }
+    },
+    {
+      "imagem": "img/originais/quarto-suite-vista.jpg",
+      "alt": {
+        "pt": "Vista para o mar a partir do quarto",
+        "en": "Sea view from the room",
+        "es": "Vista al mar desde la habitación"
+      }
+    },
+    {
+      "imagem": "img/originais/quarto-luxo.jpg",
+      "alt": {
+        "pt": "Quarto Triplo",
+        "en": "Triple room",
+        "es": "Habitación Triple"
+      }
+    },
+    {
+      "imagem": "img/originais/quarto-suite.jpg",
+      "alt": {
+        "pt": "Quarto Quádruplo",
+        "en": "Quadruple room",
+        "es": "Habitación Cuádruple"
+      }
+    }
   ]
 }

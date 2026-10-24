@@ -1,31 +1,3 @@
 {
-  "pacotes": [
-    {
-      "ativo": true,
-      "titulo": { "pt": "Réveillon pé na areia", "en": "Beachfront New Year's Eve", "es": "Año Nuevo frente al mar" },
-      "descricao": { "pt": "5 noites na Suíte Master com ceia de Réveillon, espumante no quarto e café da manhã todos os dias.", "en": "5 nights in the Master Suite with New Year's Eve dinner, sparkling wine in the room and daily breakfast.", "es": "5 noches en la Suite Master con cena de Año Nuevo, espumante en la habitación y desayuno todos los días." },
-      "preco": 3900,
-      "noites": 5,
-      "validade": "2026-12-31",
-      "imagem": "img/originais/galeria-por-do-sol.jpg"
-    },
-    {
-      "ativo": true,
-      "titulo": { "pt": "Lua de mel", "en": "Honeymoon", "es": "Luna de miel" },
-      "descricao": { "pt": "3 noites no quarto Luxo com decoração especial, espumante, café da manhã no quarto e jantar romântico.", "en": "3 nights in the Deluxe room with special decoration, sparkling wine, breakfast in the room and a romantic dinner.", "es": "3 noches en la habitación Superior con decoración especial, espumante, desayuno en la habitación y cena romántica." },
-      "preco": 1590,
-      "noites": 3,
-      "validade": "",
-      "imagem": "img/originais/quarto-luxo-banheira.jpg"
-    },
-    {
-      "ativo": true,
-      "titulo": { "pt": "Estadia longa: 7 noites", "en": "Long stay: 7 nights", "es": "Estadía larga: 7 noches" },
-      "descricao": { "pt": "Fique 7 noites no quarto Standard pagando 6. Válido fora da alta temporada.", "en": "Stay 7 nights in the Standard room and pay for 6. Valid outside high season.", "es": "Quedate 7 noches en la habitación Standard y pagá 6. Válido fuera de temporada alta." },
-      "preco": 1500,
-      "noites": 7,
-      "validade": "",
-      "imagem": "img/originais/galeria-praia.jpg"
-    }
-  ]
+  "pacotes": []
 }

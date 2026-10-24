@@ -37,9 +37,10 @@ collections:
                 default: todos
                 options:
                   - { label: Todos os quartos (pousada lotada), value: todos }
-                  - { label: Standard, value: standard }
-                  - { label: Luxo, value: luxo }
-                  - { label: Suíte Master, value: suite }
+                  - { label: Individual, value: individual }
+                  - { label: Casal, value: casal }
+                  - { label: Triplo, value: triplo }
+                  - { label: Quádruplo, value: quadruplo }
               - label: Primeira noite ocupada
                 name: inicio
                 widget: datetime
@@ -62,10 +63,10 @@ collections:
       - name: quartos
         label: 🛏️ Quartos (preços e fotos)
         file: data/quartos.json
-        description: Preço da diária na baixa temporada, capacidade e fotos de cada quarto.
+        description: Preço da diária, capacidade e fotos de cada quarto. A descrição das camas fica no código (src/index.html).
         fields:
-          - label: Standard
-            name: standard
+          - label: Individual
+            name: individual
             widget: object
             collapsed: true
             fields: &camposQuarto
@@ -86,8 +87,9 @@ collections:
                       - { label: Português, name: pt, widget: string }
                       - { label: English, name: en, widget: string, required: false }
                       - { label: Español, name: es, widget: string, required: false }
-          - { label: Luxo, name: luxo, widget: object, collapsed: true, fields: *camposQuarto }
-          - { label: Suíte Master, name: suite, widget: object, collapsed: true, fields: *camposQuarto }
+          - { label: Casal, name: casal, widget: object, collapsed: true, fields: *camposQuarto }
+          - { label: Triplo, name: triplo, widget: object, collapsed: true, fields: *camposQuarto }
+          - { label: Quádruplo, name: quadruplo, widget: object, collapsed: true, fields: *camposQuarto }
 
       # ---------- TEMPORADAS ----------
       - name: temporadas

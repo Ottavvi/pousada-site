@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pousada Lagoa Azul</title>
-  <meta name="description" content="Pousada à beira-mar com quartos confortáveis, café da manhã regional e atendimento acolhedor.">
+  <meta name="description" content="Pousada de frente para o mar, com ambiente familiar, quartos com ar-condicionado, Wi-Fi grátis, cozinha compartilhada e estacionamento em frente à praia.">
   <meta name="theme-color" content="#0e7c86">
 
   <link rel="canonical" href="{{geral.site_url}}">
@@ -21,7 +21,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{geral.site_url}}">
   <meta property="og:title" content="Pousada Lagoa Azul">
-  <meta property="og:description" content="Pousada à beira-mar com quartos confortáveis, café da manhã regional e atendimento acolhedor.">
+  <meta property="og:description" content="Pousada de frente para o mar, com ambiente familiar, quartos com ar-condicionado, Wi-Fi grátis, cozinha compartilhada e estacionamento em frente à praia.">
   <meta property="og:image" content="{{geral.site_url}}img/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -77,7 +77,7 @@
       <div class="container hero__content">
         <p class="hero__tag" data-i18n="hero.tag">Bem-vindo ao paraíso</p>
         <h1 data-i18n="hero.title">Descanso, mar e acolhimento em um só lugar</h1>
-        <p class="hero__text" data-i18n="hero.text">A poucos passos da praia, com café da manhã regional e quartos pensados para o seu conforto.</p>
+        <p class="hero__text" data-i18n="hero.text">De frente para o mar, com quartos confortáveis e um ambiente familiar para você descansar.</p>
         <div class="hero__actions">
           <a href="#reserva" class="btn" data-i18n="hero.book">Reservar agora</a>
           <a href="#quartos" class="btn btn--outline" data-i18n="hero.rooms">Ver quartos</a>
@@ -109,9 +109,10 @@
           <div class="field">
             <label for="tipoQuarto" data-i18n="booking.room">Quarto</label>
             <select id="tipoQuarto" name="tipoQuarto">
-              <option value="standard">Standard</option>
-              <option value="luxo" data-i18n="room.luxo">Luxo</option>
-              <option value="suite" data-i18n="room.suite">Suíte Master</option>
+              <option value="individual" data-i18n="room.individual">Individual</option>
+              <option value="casal" selected data-i18n="room.casal">Casal</option>
+              <option value="triplo" data-i18n="room.triplo">Triplo</option>
+              <option value="quadruplo" data-i18n="room.quadruplo">Quádruplo</option>
             </select>
           </div>
           <button type="submit" class="btn" data-i18n="booking.submit">Verificar</button>
@@ -149,13 +150,8 @@
         <div class="about__text">
           <p class="section__tag" data-i18n="about.tag">Sobre nós</p>
           <h2 data-i18n="about.title">Uma pousada com alma de casa</h2>
-          <p data-i18n="about.p1">Há mais de 15 anos recebemos hóspedes que buscam tranquilidade, contato com a natureza e um atendimento que faz sentir em casa.</p>
-          <p data-i18n="about.p2">Nossa estrutura combina o charme rústico com o conforto moderno, cercada de jardins e com vista para o mar.</p>
-          <ul class="about__stats">
-            <li><strong data-count="15">0</strong><span data-i18n="about.stat1">anos de história</span></li>
-            <li><strong data-count="12">0</strong><span data-i18n="about.stat2">quartos</span></li>
-            <li><strong data-count="4800">0</strong><span data-i18n="about.stat3">hóspedes felizes</span></li>
-          </ul>
+          <p data-i18n="about.p1">De frente para o mar, a Pousada Lagoa Azul é um lugar tranquilo e familiar para descansar com quem você ama.</p>
+          <p data-i18n="about.p2">Os quartos têm ar-condicionado e Wi-Fi grátis, e você ainda conta com uma cozinha compartilhada para preparar suas refeições e estacionamento livre em frente à praia.</p>
         </div>
       </div>
     </section>
@@ -172,18 +168,18 @@
           <article class="room-card">
             <div class="room-carousel" data-carousel>
               <div class="room-carousel__track">
-                <!-- @bloco fotos-quarto standard -->
+                <!-- @bloco fotos-quarto individual -->
               </div>
             </div>
             <div class="room-card__body">
-              <h3>Standard</h3>
-              <p data-i18n="room.standard.desc">Cama de casal, ar-condicionado, TV e frigobar. Ideal para casais.</p>
+              <h3 data-i18n="room.individual">Individual</h3>
+              <p data-i18n="room.individual.desc">Uma cama de solteiro. Ideal para quem viaja sozinho.</p>
               <ul class="room-card__features">
-                <li data-i18n="feat.people2">2 pessoas</li><li>18 m²</li><li>Wi-Fi</li>
+                <li data-i18n="feat.people1">1 pessoa</li><li data-i18n="feat.ac">Ar-condicionado</li><li>Wi-Fi</li>
               </ul>
               <div class="room-card__footer">
-                <p class="price"><small data-i18n="rooms.from">a partir de</small>{{moeda:quartos.standard.preco}}<span data-i18n="rooms.night">/noite</span></p>
-                <a href="#reserva" class="btn btn--small" data-room="standard" data-i18n="rooms.book">Reservar</a>
+                <p class="price">{{moeda:quartos.individual.preco}}<span data-i18n="rooms.night">/noite</span></p>
+                <a href="#reserva" class="btn btn--small" data-room="individual" data-i18n="rooms.book">Reservar</a>
               </div>
             </div>
           </article>
@@ -191,18 +187,18 @@
           <article class="room-card">
             <div class="room-carousel" data-carousel>
               <div class="room-carousel__track">
-                <!-- @bloco fotos-quarto luxo -->
+                <!-- @bloco fotos-quarto casal -->
               </div>
             </div>
             <div class="room-card__body">
-              <h3 data-i18n="room.luxo">Luxo</h3>
-              <p data-i18n="room.luxo.desc">Varanda com rede, vista para o jardim e banheira de hidromassagem.</p>
+              <h3 data-i18n="room.casal">Casal</h3>
+              <p data-i18n="room.casal.desc">Uma cama de casal. Ideal para casais.</p>
               <ul class="room-card__features">
-                <li data-i18n="feat.people3">3 pessoas</li><li>26 m²</li><li data-i18n="feat.balcony">Varanda</li>
+                <li data-i18n="feat.people2">2 pessoas</li><li data-i18n="feat.ac">Ar-condicionado</li><li>Wi-Fi</li>
               </ul>
               <div class="room-card__footer">
-                <p class="price"><small data-i18n="rooms.from">a partir de</small>{{moeda:quartos.luxo.preco}}<span data-i18n="rooms.night">/noite</span></p>
-                <a href="#reserva" class="btn btn--small" data-room="luxo" data-i18n="rooms.book">Reservar</a>
+                <p class="price">{{moeda:quartos.casal.preco}}<span data-i18n="rooms.night">/noite</span></p>
+                <a href="#reserva" class="btn btn--small" data-room="casal" data-i18n="rooms.book">Reservar</a>
               </div>
             </div>
           </article>
@@ -210,18 +206,37 @@
           <article class="room-card">
             <div class="room-carousel" data-carousel>
               <div class="room-carousel__track">
-                <!-- @bloco fotos-quarto suite -->
+                <!-- @bloco fotos-quarto triplo -->
               </div>
             </div>
             <div class="room-card__body">
-              <h3 data-i18n="room.suite">Suíte Master</h3>
-              <p data-i18n="room.suite.desc">Vista para o mar, cama king size, sala de estar e café servido no quarto.</p>
+              <h3 data-i18n="room.triplo">Triplo</h3>
+              <p data-i18n="room.triplo.desc">Uma cama de casal e uma cama de solteiro.</p>
               <ul class="room-card__features">
-                <li data-i18n="feat.people4">4 pessoas</li><li>40 m²</li><li data-i18n="feat.seaview">Vista mar</li>
+                <li data-i18n="feat.people3">3 pessoas</li><li data-i18n="feat.ac">Ar-condicionado</li><li>Wi-Fi</li>
               </ul>
               <div class="room-card__footer">
-                <p class="price"><small data-i18n="rooms.from">a partir de</small>{{moeda:quartos.suite.preco}}<span data-i18n="rooms.night">/noite</span></p>
-                <a href="#reserva" class="btn btn--small" data-room="suite" data-i18n="rooms.book">Reservar</a>
+                <p class="price">{{moeda:quartos.triplo.preco}}<span data-i18n="rooms.night">/noite</span></p>
+                <a href="#reserva" class="btn btn--small" data-room="triplo" data-i18n="rooms.book">Reservar</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-carousel" data-carousel>
+              <div class="room-carousel__track">
+                <!-- @bloco fotos-quarto quadruplo -->
+              </div>
+            </div>
+            <div class="room-card__body">
+              <h3 data-i18n="room.quadruplo">Quádruplo</h3>
+              <p data-i18n="room.quadruplo.desc">Uma cama de casal e duas camas de solteiro. Ideal para famílias.</p>
+              <ul class="room-card__features">
+                <li data-i18n="feat.people4">4 pessoas</li><li data-i18n="feat.ac">Ar-condicionado</li><li>Wi-Fi</li>
+              </ul>
+              <div class="room-card__footer">
+                <p class="price">{{moeda:quartos.quadruplo.preco}}<span data-i18n="rooms.night">/noite</span></p>
+                <a href="#reserva" class="btn btn--small" data-room="quadruplo" data-i18n="rooms.book">Reservar</a>
               </div>
             </div>
           </article>
@@ -242,12 +257,12 @@
           <h2 data-i18n="amen.title">Comodidades</h2>
         </div>
         <ul class="amenities__grid">
-          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🏊</span><h3 data-i18n="amen.pool">Piscina</h3><p data-i18n="amen.pool.p">Piscina adulto e infantil com espreguiçadeiras.</p></li>
-          <li class="amenity"><span class="amenity__icon" aria-hidden="true">☕</span><h3 data-i18n="amen.breakfast">Café da manhã</h3><p data-i18n="amen.breakfast.p">Café regional incluso na diária.</p></li>
-          <li class="amenity"><span class="amenity__icon" aria-hidden="true">📶</span><h3 data-i18n="amen.wifi">Wi-Fi grátis</h3><p data-i18n="amen.wifi.p">Internet em todas as áreas.</p></li>
-          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🚗</span><h3 data-i18n="amen.parking">Estacionamento</h3><p data-i18n="amen.parking.p">Vagas cobertas e gratuitas.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🌊</span><h3 data-i18n="amen.sea">Frente ao mar</h3><p data-i18n="amen.sea.p">A pousada fica de frente para o mar.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">👨‍👩‍👧</span><h3 data-i18n="amen.family">Ambiente familiar</h3><p data-i18n="amen.family.p">Um lugar tranquilo para curtir em família.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🍳</span><h3 data-i18n="amen.kitchen">Cozinha compartilhada</h3><p data-i18n="amen.kitchen.p">Prepare suas refeições quando quiser.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🚗</span><h3 data-i18n="amen.parking">Estacionamento</h3><p data-i18n="amen.parking.p">Livre, em frente à praia.</p></li>
+          <li class="amenity"><span class="amenity__icon" aria-hidden="true">📶</span><h3 data-i18n="amen.wifi">Wi-Fi grátis</h3><p data-i18n="amen.wifi.p">Internet sem custo para os hóspedes.</p></li>
           <li class="amenity"><span class="amenity__icon" aria-hidden="true">🐾</span><h3>Pet friendly</h3><p data-i18n="amen.pets.p">Seu pet também é bem-vindo.</p></li>
-          <li class="amenity"><span class="amenity__icon" aria-hidden="true">🏖️</span><h3 data-i18n="amen.beach">Pé na areia</h3><p data-i18n="amen.beach.p">A 50 metros da praia.</p></li>
         </ul>
       </div>
     </section>
@@ -265,7 +280,8 @@
       </div>
     </section>
 
-    <!-- ===== DEPOIMENTOS ===== -->
+    <!-- ===== DEPOIMENTOS (só aparece com depoimentos ou nota do Google em data/avaliacoes.json) ===== -->
+    <!-- @se avaliacoes -->
     <section class="section testimonials" id="depoimentos">
       <div class="container">
         <div class="section__header">
@@ -287,6 +303,7 @@
         <!-- @bloco avaliacao-link -->
       </div>
     </section>
+    <!-- @fim -->
 
     <!-- ===== LOCALIZAÇÃO E PASSEIOS ===== -->
     <section class="section location" id="localizacao">

@@ -1,29 +1,35 @@
 {
-  "standard": {
-    "preco": 250,
+  "individual": {
+    "preco": 100,
+    "capacidade": 1,
+    "fotos": [
+      { "imagem": "img/originais/quarto-standard-detalhe.jpg", "alt": { "pt": "Cama do quarto Individual", "en": "Bed in the Single room", "es": "Cama de la habitación Individual" } },
+      { "imagem": "img/originais/quarto-standard-banheiro.jpg", "alt": { "pt": "Banheiro do quarto Individual", "en": "Single room bathroom", "es": "Baño de la habitación Individual" } }
+    ]
+  },
+  "casal": {
+    "preco": 180,
     "capacidade": 2,
     "fotos": [
-      { "imagem": "img/originais/quarto-standard.jpg", "alt": { "pt": "Quarto Standard com cama de casal e janela para o jardim", "en": "Standard room with double bed and window to the garden", "es": "Habitación Standard con cama doble y ventana al jardín" } },
-      { "imagem": "img/originais/quarto-standard-banheiro.jpg", "alt": { "pt": "Banheiro do quarto Standard", "en": "Standard room bathroom", "es": "Baño de la habitación Standard" } },
-      { "imagem": "img/originais/quarto-standard-detalhe.jpg", "alt": { "pt": "Detalhe da cama e criado-mudo do quarto Standard", "en": "Bed and nightstand detail in the Standard room", "es": "Detalle de la cama y mesa de luz de la habitación Standard" } }
+      { "imagem": "img/originais/quarto-standard.jpg", "alt": { "pt": "Quarto Casal com cama de casal", "en": "Double room with a double bed", "es": "Habitación Doble con cama matrimonial" } },
+      { "imagem": "img/originais/quarto-standard-banheiro.jpg", "alt": { "pt": "Banheiro do quarto Casal", "en": "Double room bathroom", "es": "Baño de la habitación Doble" } }
     ]
   },
-  "luxo": {
-    "preco": 380,
+  "triplo": {
+    "preco": 210,
     "capacidade": 3,
     "fotos": [
-      { "imagem": "img/originais/quarto-luxo.jpg", "alt": { "pt": "Quarto Luxo com piso de madeira e portas para a varanda", "en": "Deluxe room with wooden floor and doors to the balcony", "es": "Habitación Superior con piso de madera y puertas al balcón" } },
-      { "imagem": "img/originais/quarto-luxo-banheira.jpg", "alt": { "pt": "Banheira de hidromassagem do quarto Luxo", "en": "Hot tub in the Deluxe room", "es": "Bañera de hidromasaje de la habitación Superior" } },
-      { "imagem": "img/originais/galeria-jardim.jpg", "alt": { "pt": "Vista do jardim a partir da varanda do quarto Luxo", "en": "Garden view from the Deluxe room balcony", "es": "Vista al jardín desde el balcón de la habitación Superior" } }
+      { "imagem": "img/originais/quarto-luxo.jpg", "alt": { "pt": "Quarto Triplo", "en": "Triple room", "es": "Habitación Triple" } },
+      { "imagem": "img/originais/quarto-standard-banheiro.jpg", "alt": { "pt": "Banheiro do quarto Triplo", "en": "Triple room bathroom", "es": "Baño de la habitación Triple" } }
     ]
   },
-  "suite": {
-    "preco": 560,
+  "quadruplo": {
+    "preco": 280,
     "capacidade": 4,
     "fotos": [
-      { "imagem": "img/originais/quarto-suite.jpg", "alt": { "pt": "Suíte Master ampla com sala de estar e janelas panorâmicas", "en": "Spacious Master Suite with living area and panoramic windows", "es": "Amplia Suite Master con sala de estar y ventanales panorámicos" } },
-      { "imagem": "img/originais/quarto-suite-vista.jpg", "alt": { "pt": "Vista para o mar a partir da Suíte Master", "en": "Sea view from the Master Suite", "es": "Vista al mar desde la Suite Master" } },
-      { "imagem": "img/originais/quarto-suite-banheiro.jpg", "alt": { "pt": "Banheiro da Suíte Master com banheira", "en": "Master Suite bathroom with bathtub", "es": "Baño de la Suite Master con bañera" } }
+      { "imagem": "img/originais/quarto-suite.jpg", "alt": { "pt": "Quarto Quádruplo", "en": "Quadruple room", "es": "Habitación Cuádruple" } },
+      { "imagem": "img/originais/quarto-suite-vista.jpg", "alt": { "pt": "Vista para o mar a partir do quarto", "en": "Sea view from the room", "es": "Vista al mar desde la habitación" } },
+      { "imagem": "img/originais/quarto-suite-banheiro.jpg", "alt": { "pt": "Banheiro do quarto Quádruplo", "en": "Quadruple room bathroom", "es": "Baño de la habitación Cuádruple" } }
     ]
   }
 }

@@ -207,7 +207,7 @@ function initActiveLink() {
 
 /* ---------- Formulário de reserva ---------- */
 function nomeQuarto(tipo) {
-  return tipo === 'standard' ? 'Standard' : t(`room.${tipo}`);
+  return t(`room.${tipo}`);
 }
 
 function temporadaDe(iso) {
@@ -260,7 +260,8 @@ function initBooking() {
     const quarto = tipo.value;
     const qtd = +hospedes.value;
     if (qtd > CAPACIDADE[quarto]) {
-      return showResult(t('msg.errCapacity', { room: nomeQuarto(quarto), n: CAPACIDADE[quarto] }), true);
+      const chave = CAPACIDADE[quarto] === 1 ? 'msg.errCapacityOne' : 'msg.errCapacity';
+      return showResult(t(chave, { room: nomeQuarto(quarto), n: CAPACIDADE[quarto] }), true);
     }
 
     // Noites já ocupadas (cadastradas no painel): avisa e sugere outros quartos livres
@@ -358,6 +359,7 @@ function initBooking() {
 // Texto abaixo dos quartos explicando os acréscimos de cada temporada
 function initTemporadas() {
   const nota = document.getElementById('seasonNote');
+  if (!TEMPORADAS.length) return nota.remove(); // preço único o ano todo
 
   const montar = () => {
     nota.replaceChildren(`${t('msg.seasonNote')} `);
@@ -860,6 +862,10 @@ function initGallery() {
 function initSlider() {
   const slider = document.getElementById('slider');
   const slides = document.querySelectorAll('.slide');
+  if (!slider || !slides.length) {
+    slider?.remove(); // seção só com a nota do Google, sem depoimentos
+    return;
+  }
   const dotsContainer = document.getElementById('sliderDots');
   let atual = 0;
   let timer;
