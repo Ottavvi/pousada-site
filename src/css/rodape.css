@@ -1,0 +1,246 @@
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer {
+  position: relative;
+  background: #12343a;
+  color: #cfdcdc;
+  padding: 4.5rem 0 0;
+}
+/* Onda no topo do rodapé */
+.footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 40px;
+  background: var(--color-bg-alt);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 0h1440v14c-160 18-320 26-480 18S640 6 480 8 160 30 0 22Z'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 0h1440v14c-160 18-320 26-480 18S640 6 480 8 160 30 0 22Z'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.footer__brand p {
+  margin: 0.5rem 0 1.25rem;
+  font-family: var(--font-title);
+  font-style: italic;
+  color: #a9c1c1;
+}
+.footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.footer__social a {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  transition:
+    border-color var(--transition),
+    color var(--transition);
+}
+.footer__social a:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.footer__links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1.5rem;
+  align-content: start;
+}
+.footer__links a,
+.footer__contact a {
+  transition: color var(--transition);
+}
+.footer__links a:hover,
+.footer__contact a:hover {
+  color: var(--color-accent);
+}
+.footer__contact {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  font-size: 0.95rem;
+}
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.25rem 0;
+  text-align: center;
+}
+.footer p {
+  font-size: 0.85rem;
+}
+
+/* Botões flutuantes das redes sociais */
+.social-float {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  z-index: 90;
+}
+.social-float__btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  box-shadow: var(--shadow);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+.social-float__btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+}
+.social-float__btn svg {
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
+}
+.social-float__btn--instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+}
+.social-float__btn--facebook {
+  background: #1877f2;
+}
+.social-float__btn--whatsapp {
+  width: 50px;
+  height: 50px;
+  background: #25d366;
+}
+.social-float__btn--whatsapp svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Etiqueta "Fale conosco" ao passar o mouse no WhatsApp */
+.social-float__label {
+  position: absolute;
+  right: calc(100% + 0.75rem);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-white);
+  color: var(--color-text);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+.social-float__btn--whatsapp:hover .social-float__label,
+.social-float__btn--whatsapp:focus-visible .social-float__label {
+  opacity: 1;
+}
+
+/* Pulso suave chamando atenção para o WhatsApp */
+.social-float__btn--whatsapp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  z-index: -1;
+  animation: pulso 2.5s ease-out infinite;
+}
+@keyframes pulso {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Voltar ao topo (lado esquerdo, para não disputar com as redes sociais) */
+.back-to-top {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 1.3rem;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  z-index: 90;
+}
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Barra de reserva fixa (aparece só no celular, ver RESPONSIVO) */
+.mobile-bar {
+  display: none;
+}
+
+/* Aviso de cookies */
+.cookie-banner {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: 560px;
+  margin-inline: auto;
+  background: #12343a;
+  color: #e6eeee;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  z-index: 150;
+}
+.cookie-banner[hidden] {
+  display: none;
+}
+.cookie-banner p {
+  flex: 1 1 260px;
+  font-size: 0.9rem;
+}
+.cookie-banner__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Animação de entrada ao rolar */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}

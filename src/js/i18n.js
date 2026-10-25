@@ -3,7 +3,7 @@
 
    - Os textos FIXOS em português ficam no src/index.html (marcados com data-i18n).
    - Aqui ficam as versões em inglês (en) e espanhol (es) desses textos,
-     e as mensagens geradas pelo script.js nos três idiomas (chaves "msg.*").
+     e as mensagens geradas pelos scripts do site nos três idiomas (chaves "msg.*").
    - Para mudar um texto fixo: altere no src/index.html (português) e aqui (en/es).
    - Textos editáveis pelo painel (FAQ, passeios, pacotes, depoimentos, fotos)
      ficam em data/ e são traduzidos lá; o build gera as chaves "d.*" no js/dados.js.
@@ -13,7 +13,8 @@
 const I18N = {
   pt: {
     'meta.title': 'Pousada Lagoa Azul',
-    'meta.description': 'Pousada de frente para o mar, com ambiente familiar, quartos com ar-condicionado, Wi-Fi grátis, cozinha compartilhada e estacionamento em frente à praia.',
+    'meta.description':
+      'Pousada de frente para o mar, com ambiente familiar, quartos com ar-condicionado, Wi-Fi grátis, cozinha compartilhada e estacionamento em frente à praia.',
 
     'msg.menuOpen': 'Abrir menu',
     'msg.menuClose': 'Fechar menu',
@@ -42,7 +43,8 @@ const I18N = {
     'msg.total': 'Total estimado',
     'msg.seasonIncl': 'inclui {n} {nights} de {season} (+{p}%)',
     'msg.waBtn': 'Solicitar reserva pelo WhatsApp',
-    'msg.waText': 'Olá! Gostaria de reservar o quarto {room} de {in} a {out} para {n} {guests}. Valor estimado: {total}.',
+    'msg.waText':
+      'Olá! Gostaria de reservar o quarto {room} de {in} a {out} para {n} {guests}. Valor estimado: {total}.',
     'msg.guest': 'hóspede',
     'msg.guests': 'hóspedes',
     'msg.zoom': 'Ampliar foto: {alt}',
@@ -58,15 +60,18 @@ const I18N = {
     'msg.sending': 'Enviando...',
     'msg.sent': 'Mensagem enviada! Responderemos em breve.',
     'msg.sendErr': 'Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.',
-    'msg.seasonNote': 'Valores da baixa temporada. Acréscimos:',
+    'msg.seasonNote': 'Valores da baixa temporada. Acréscimos:'
   },
 
   en: {
     'meta.title': 'Lagoa Azul Guesthouse | Beachfront Inn in Brazil',
-    'meta.description': 'Seafront guesthouse with a family atmosphere, air-conditioned rooms, free Wi-Fi, a shared kitchen and parking in front of the beach.',
+    'meta.description':
+      'Seafront guesthouse with a family atmosphere, air-conditioned rooms, free Wi-Fi, a shared kitchen and parking in front of the beach.',
     'hero.text': 'Right on the seafront, with comfortable rooms and a family atmosphere for you to relax.',
-    'about.p1': 'Right on the seafront, Pousada Lagoa Azul is a quiet, family-friendly place to relax with the people you love.',
-    'about.p2': 'Rooms have air conditioning and free Wi-Fi, and you can also use a shared kitchen to prepare your meals and free parking in front of the beach.',
+    'about.p1':
+      'Right on the seafront, Pousada Lagoa Azul is a quiet, family-friendly place to relax with the people you love.',
+    'about.p2':
+      'Rooms have air conditioning and free Wi-Fi, and you can also use a shared kitchen to prepare your meals and free parking in front of the beach.',
     'room.individual': 'Single',
     'room.casal': 'Double',
     'room.triplo': 'Triple',
@@ -89,7 +94,7 @@ const I18N = {
     'amen.parking.p': 'Free, in front of the beach.',
     'amen.wifi.p': 'Free internet for guests.',
 
-    'skip': 'Skip to content',
+    skip: 'Skip to content',
     'nav.about': 'About',
     'nav.rooms': 'Rooms',
     'nav.gallery': 'Gallery',
@@ -159,7 +164,7 @@ const I18N = {
     'float.facebook': 'Guesthouse Facebook',
     'float.whatsapp': 'Chat on WhatsApp',
     'float.label': 'Contact us',
-    'top': 'Back to top',
+    top: 'Back to top',
     'lb.label': 'Gallery photo',
     'lb.close': 'Close',
     'lb.prev': 'Previous photo',
@@ -184,7 +189,8 @@ const I18N = {
     'msg.pixResumo': '{room} · {in} to {out} · {n} {guests}',
     'msg.pixWa': 'Hello! I paid the {valor} deposit via Pix. Booking: {resumo}. Here is the receipt.',
     'msg.copied': 'Copied!',
-    'msg.pacWa': 'Hello! I am interested in the "{pacote}" package ({noites} nights, {valor}). Which dates are available?',
+    'msg.pacWa':
+      'Hello! I am interested in the "{pacote}" package ({noites} nights, {valor}). Which dates are available?',
     'msg.linkCopied': 'Link copied!',
 
     'cal.toggle': 'See availability calendar',
@@ -204,7 +210,8 @@ const I18N = {
     'pix.step1': 'Open your bank app and scan the QR code, or use Pix copy and paste:',
     'pix.codeLabel': 'Pix copy and paste code',
     'pix.copy': 'Copy',
-    'pix.step2': 'After paying, send the receipt via WhatsApp. Your booking is confirmed as soon as we check the payment.',
+    'pix.step2':
+      'After paying, send the receipt via WhatsApp. Your booking is confirmed as soon as we check the payment.',
     'pix.send': 'Send receipt via WhatsApp',
     'msg.errDates': 'Please select check-in and check-out dates.',
     'msg.errPast': 'Check-in date cannot be in the past.',
@@ -216,7 +223,8 @@ const I18N = {
     'msg.total': 'Estimated total',
     'msg.seasonIncl': 'includes {n} {nights} in {season} (+{p}%)',
     'msg.waBtn': 'Request booking via WhatsApp',
-    'msg.waText': 'Hello! I would like to book the {room} room from {in} to {out} for {n} {guests}. Estimated price: {total}.',
+    'msg.waText':
+      'Hello! I would like to book the {room} room from {in} to {out} for {n} {guests}. Estimated price: {total}.',
     'msg.guest': 'guest',
     'msg.guests': 'guests',
     'msg.zoom': 'Enlarge photo: {alt}',
@@ -232,15 +240,18 @@ const I18N = {
     'msg.sending': 'Sending...',
     'msg.sent': 'Message sent! We will reply soon.',
     'msg.sendErr': 'Could not send right now. Please try again or contact us on WhatsApp.',
-    'msg.seasonNote': 'Low season rates. Surcharges:',
+    'msg.seasonNote': 'Low season rates. Surcharges:'
   },
 
   es: {
     'meta.title': 'Posada Lagoa Azul | Posada frente al mar en Brasil',
-    'meta.description': 'Posada frente al mar, con ambiente familiar, habitaciones con aire acondicionado, Wi-Fi gratis, cocina compartida y estacionamiento frente a la playa.',
+    'meta.description':
+      'Posada frente al mar, con ambiente familiar, habitaciones con aire acondicionado, Wi-Fi gratis, cocina compartida y estacionamiento frente a la playa.',
     'hero.text': 'Frente al mar, con habitaciones cómodas y un ambiente familiar para que descanses.',
-    'about.p1': 'Frente al mar, la Posada Lagoa Azul es un lugar tranquilo y familiar para descansar con quien más querés.',
-    'about.p2': 'Las habitaciones tienen aire acondicionado y Wi-Fi gratis, y además contás con una cocina compartida para preparar tus comidas y estacionamiento libre frente a la playa.',
+    'about.p1':
+      'Frente al mar, la Posada Lagoa Azul es un lugar tranquilo y familiar para descansar con quien más querés.',
+    'about.p2':
+      'Las habitaciones tienen aire acondicionado y Wi-Fi gratis, y además contás con una cocina compartida para preparar tus comidas y estacionamiento libre frente a la playa.',
     'room.individual': 'Individual',
     'room.casal': 'Doble',
     'room.triplo': 'Triple',
@@ -263,7 +274,7 @@ const I18N = {
     'amen.parking.p': 'Libre, frente a la playa.',
     'amen.wifi.p': 'Internet sin costo para los huéspedes.',
 
-    'skip': 'Saltar al contenido',
+    skip: 'Saltar al contenido',
     'nav.about': 'Nosotros',
     'nav.rooms': 'Habitaciones',
     'nav.gallery': 'Galería',
@@ -333,7 +344,7 @@ const I18N = {
     'float.facebook': 'Facebook de la posada',
     'float.whatsapp': 'Conversar por WhatsApp',
     'float.label': 'Contactanos',
-    'top': 'Volver arriba',
+    top: 'Volver arriba',
     'lb.label': 'Foto de la galería',
     'lb.close': 'Cerrar',
     'lb.prev': 'Foto anterior',
@@ -378,7 +389,8 @@ const I18N = {
     'pix.step1': 'Abrí la app de tu banco y escaneá el código QR, o usá Pix copia y pega:',
     'pix.codeLabel': 'Código Pix copia y pega',
     'pix.copy': 'Copiar',
-    'pix.step2': 'Después de pagar, enviá el comprobante por WhatsApp. Tu reserva se confirma en cuanto verifiquemos el pago.',
+    'pix.step2':
+      'Después de pagar, enviá el comprobante por WhatsApp. Tu reserva se confirma en cuanto verifiquemos el pago.',
     'pix.send': 'Enviar comprobante por WhatsApp',
     'msg.errDates': 'Seleccioná las fechas de check-in y check-out.',
     'msg.errPast': 'La fecha de check-in no puede estar en el pasado.',
@@ -390,7 +402,8 @@ const I18N = {
     'msg.total': 'Total estimado',
     'msg.seasonIncl': 'incluye {n} {nights} de {season} (+{p}%)',
     'msg.waBtn': 'Solicitar reserva por WhatsApp',
-    'msg.waText': '¡Hola! Me gustaría reservar la habitación {room} del {in} al {out} para {n} {guests}. Valor estimado: {total}.',
+    'msg.waText':
+      '¡Hola! Me gustaría reservar la habitación {room} del {in} al {out} para {n} {guests}. Valor estimado: {total}.',
     'msg.guest': 'huésped',
     'msg.guests': 'huéspedes',
     'msg.zoom': 'Ampliar foto: {alt}',
@@ -406,6 +419,6 @@ const I18N = {
     'msg.sending': 'Enviando...',
     'msg.sent': '¡Mensaje enviado! Te responderemos pronto.',
     'msg.sendErr': 'No fue posible enviar ahora. Intentá de nuevo o escribinos por WhatsApp.',
-    'msg.seasonNote': 'Tarifas de temporada baja. Recargos:',
+    'msg.seasonNote': 'Tarifas de temporada baja. Recargos:'
   }
 };

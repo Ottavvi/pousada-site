@@ -4,9 +4,12 @@
   "description": "Site da Pousada Lagoa Azul",
   "scripts": {
     "build": "node tools/build.js",
-    "dev": "node tools/build.js && node tools/servidor.js"
+    "dev": "node tools/build.js && node tools/servidor.js",
+    "formatar": "prettier --write .",
+    "verificar-formato": "prettier --check ."
   },
   "devDependencies": {
+    "prettier": "^3.3.3",
     "sharp": "^0.33.5"
   },
   "dependencies": {

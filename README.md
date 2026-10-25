@@ -8,7 +8,10 @@ Painel de edição: https://ottavvi.github.io/pousada-site/admin/
 ```
 data/            dados editáveis pelo painel (preços, datas ocupadas, pacotes, FAQ, fotos...)
 img/originais/   fotos originais (o site usa versões WebP geradas automaticamente)
-src/             modelo do site: index.html, CSS, JS, traduções e o painel (src/admin/)
+src/             modelo do site: index.html, 404.html e o painel (src/admin/)
+src/css/         estilos, um arquivo por parte da página (responsivo.css por último)
+src/js/          um arquivo por funcionalidade (reserva, calendário, Pix, galeria...),
+                 traduções em i18n.js e main.js, que liga tudo ao carregar a página
 tools/build.js   monta o site final em dist/ a partir de src/ + data/ + img/originais/
 .github/         rotina que monta e publica o site a cada alteração na branch main
 ```
@@ -25,8 +28,8 @@ Para entrar, use **"Entrar Usando Token de Acesso"** (o botão "Entrar com GitHu
 pois exigiria um servidor de login):
 
 1. Crie um token em https://github.com/settings/personal-access-tokens/new
-   - *Repository access*: só o repositório `pousada-site`
-   - *Permissions → Contents*: **Read and write**
+   - _Repository access_: só o repositório `pousada-site`
+   - _Permissions → Contents_: **Read and write**
 2. Cole o token na tela do painel. Ele fica salvo naquele navegador.
 
 O que dá para editar: datas ocupadas, preços e fotos dos quartos, temporadas, pacotes,
@@ -40,6 +43,19 @@ Textos fixos (títulos das seções, descrições dos quartos, comodidades) fica
 npm install
 npm run dev     # monta e abre em http://localhost:8080
 npm run build   # só monta em dist/
+```
+
+## Organização do código
+
+- Cada arquivo de `src/js/` cuida de uma parte do site e é carregado em ordem pelo `src/index.html`
+  (`config.js` e `util.js` primeiro, `main.js` por último). Para criar uma parte nova, adicione o
+  arquivo, a tag `<script>` antes do `main.js` e a chamada `initAlgo()` dentro do `main.js`.
+- Os estilos seguem a mesma ideia em `src/css/`, com uma tag `<link>` por arquivo.
+- A formatação segue o [Prettier](https://prettier.io) (`.prettierrc.json`) e o `.editorconfig`:
+
+```bash
+npm run formatar            # formata tudo
+npm run verificar-formato   # só confere
 ```
 
 ## Pix

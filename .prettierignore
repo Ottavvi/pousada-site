@@ -1,0 +1,7 @@
+dist/
+.cache/
+node_modules/
+data/
+img/
+src/admin/config.yml
+package-lock.json

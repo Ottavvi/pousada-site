@@ -1,0 +1,198 @@
+/* =========================================
+   VARIÁVEIS
+   ========================================= */
+:root {
+  --color-primary: #0e7c86;
+  --color-primary-dark: #0a5a62;
+  --color-accent: #e9a23b;
+  --color-accent-text: #985800; /* laranja escuro para texto sobre fundo claro (contraste) */
+  --color-on-accent: #2b2116; /* texto sobre botões laranja */
+  --color-bg: #fdfaf5;
+  --color-bg-alt: #f2ece2;
+  --color-primary-soft: #e3f1f2; /* fundo dos ícones e etiquetas */
+  --color-text: #2b2b2b;
+  --color-muted: #6b6b6b;
+  --color-white: #ffffff;
+
+  --font-title: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(18, 52, 58, 0.04), 0 8px 24px rgba(18, 52, 58, 0.07);
+  --shadow-lg: 0 2px 4px rgba(18, 52, 58, 0.05), 0 18px 40px rgba(18, 52, 58, 0.13);
+  --transition: 0.3s ease;
+  --header-height: 72px;
+}
+
+/* =========================================
+   RESET / BASE
+   ========================================= */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-title);
+  line-height: 1.2;
+}
+h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 1rem;
+}
+h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.container {
+  width: min(1140px, 100% - 2rem);
+  margin-inline: auto;
+}
+
+/* Foco visível para navegação por teclado */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Link "pular para o conteúdo" (aparece só ao receber foco) */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  z-index: 300;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.section {
+  padding: 5rem 0;
+}
+.section__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.section__tag {
+  color: var(--color-accent-text);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+/* Tracinhos decorativos ao lado da etiqueta (dos dois lados quando centralizada) */
+.section__tag::before,
+.section__header .section__tag::after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 24px;
+  height: 1.5px;
+  background: currentColor;
+  opacity: 0.5;
+  margin-right: 0.75rem;
+}
+.section__header .section__tag::after {
+  margin: 0 0 0 0.75rem;
+}
+.section__intro {
+  color: var(--color-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   BOTÕES
+   ========================================= */
+.btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(233, 162, 59, 0.3);
+  transition:
+    background var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+.btn:hover {
+  background: #d18a24;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(233, 162, 59, 0.4);
+}
+.btn:active {
+  transform: none;
+}
+.btn--small {
+  padding: 0.55rem 1.2rem;
+  font-size: 0.9rem;
+}
+.btn--outline {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: none;
+  backdrop-filter: blur(4px);
+}
+.btn--outline:hover {
+  background: var(--color-white);
+  color: var(--color-primary);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+}
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

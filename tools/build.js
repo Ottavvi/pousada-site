@@ -30,15 +30,23 @@ function erro(msg) {
   process.exit(1);
 }
 
-const escapar = v => String(v ?? '')
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const escapar = v =>
+  String(v ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 
 // Campo traduzido { pt, en, es } -> texto no idioma pedido (cai para o português se faltar)
-const tr = (campo, lang = 'pt') =>
-  typeof campo === 'string' ? campo : (campo?.[lang] || campo?.pt || '');
+const tr = (campo, lang = 'pt') => (typeof campo === 'string' ? campo : campo?.[lang] || campo?.pt || '');
 
-const slug = texto => tr(texto).normalize('NFD').replace(/[̀-ͯ]/g, '')
-  .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const slug = texto =>
+  tr(texto)
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 
 const moeda = (valor, lang = 'pt') => {
   const n = Number(valor).toLocaleString(lang === 'en' ? 'en-US' : 'pt-BR', { maximumFractionDigits: 0 });
@@ -130,41 +138,66 @@ function criarBlocos(dados, dimensoes, traducoes) {
     const base = nomeBase(caminho);
     if (!dimensoes[base]) erro(`A foto "${caminho}" não existe em img/originais/.`);
     const { w, h } = dimensoes[base];
-    return `<img${classe ? ` class="${classe}"` : ''} src="img/${base}-1200.webp" ` +
+    return (
+      `<img${classe ? ` class="${classe}"` : ''} src="img/${base}-1200.webp" ` +
       `srcset="img/${base}-600.webp 600w, img/${base}-1200.webp 1200w" sizes="${sizes}" ` +
-      `alt="${escapar(registrar(chaveAlt, alt))}" data-i18n-attr="alt:${chaveAlt}" loading="lazy" width="${w}" height="${h}">`;
+      `alt="${escapar(registrar(chaveAlt, alt))}" data-i18n-attr="alt:${chaveAlt}" loading="lazy" width="${w}" height="${h}">`
+    );
   };
 
   const blocos = {};
 
-  blocos['sobre-foto'] = () => imagem(dados.fotos.sobre.imagem, 'd.alt.sobre', dados.fotos.sobre.alt,
-    'about__image', '(max-width: 900px) 100vw, 540px');
+  blocos['sobre-foto'] = () =>
+    imagem(
+      dados.fotos.sobre.imagem,
+      'd.alt.sobre',
+      dados.fotos.sobre.alt,
+      'about__image',
+      '(max-width: 900px) 100vw, 540px'
+    );
 
   blocos['fotos-quarto'] = id => {
     const quarto = dados.quartos[id];
     if (!quarto) erro(`Quarto "${id}" não encontrado em data/quartos.json.`);
-    return quarto.fotos.map((foto, i) =>
-      imagem(foto.imagem, `d.alt.${id}.${i}`, foto.alt, '', '(max-width: 700px) 100vw, 380px')).join('\n');
+    return quarto.fotos
+      .map((foto, i) => imagem(foto.imagem, `d.alt.${id}.${i}`, foto.alt, '', '(max-width: 700px) 100vw, 380px'))
+      .join('\n');
   };
 
-  blocos['galeria'] = () => dados.fotos.galeria.map((foto, i) =>
-    imagem(foto.imagem, `d.alt.gal.${i}`, foto.alt, 'gallery__item',
-      '(max-width: 520px) 100vw, (max-width: 900px) 50vw, 380px')).join('\n');
+  blocos['galeria'] = () =>
+    dados.fotos.galeria
+      .map((foto, i) =>
+        imagem(
+          foto.imagem,
+          `d.alt.gal.${i}`,
+          foto.alt,
+          'gallery__item',
+          '(max-width: 520px) 100vw, (max-width: 900px) 50vw, 380px'
+        )
+      )
+      .join('\n');
 
-  blocos['depoimentos'] = () => dados.avaliacoes.depoimentos.map((d, i) => {
-    const entreAspas = Object.fromEntries(IDIOMAS.map(lang => [lang, `"${tr(d.texto, lang)}"`]));
-    return `
+  blocos['depoimentos'] = () =>
+    dados.avaliacoes.depoimentos
+      .map((d, i) => {
+        const entreAspas = Object.fromEntries(IDIOMAS.map(lang => [lang, `"${tr(d.texto, lang)}"`]));
+        return `
             <blockquote class="slide${i === 0 ? ' is-active' : ''}">
               <p data-i18n="d.dep.${i}">${escapar(registrar(`d.dep.${i}`, entreAspas))}</p>
               <cite>— ${escapar(d.autor)}</cite>
             </blockquote>`;
-  }).join('');
+      })
+      .join('');
 
   // Nota do Google: só aparece se a nota e o link estiverem preenchidos
   blocos['avaliacao-nota'] = () => {
     const { nota, total, link_google: link } = dados.avaliacoes;
     if (!nota || !link) return '';
-    const notaTxt = lang => Number(nota).toLocaleString(lang === 'en' ? 'en-US' : 'pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const notaTxt = lang =>
+      Number(nota).toLocaleString(lang === 'en' ? 'en-US' : 'pt-BR', {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1
+      });
     const textos = {
       pt: `${notaTxt('pt')} no Google${total ? ` · ${total} avaliações` : ''}`,
       en: `${notaTxt('en')} on Google${total ? ` · ${total} reviews` : ''}`,
@@ -184,21 +217,33 @@ function criarBlocos(dados, dimensoes, traducoes) {
 
   blocos['localizacao-intro'] = () => escapar(registrar('d.loc.intro', dados.localizacao.introducao));
 
-  const itensLocal = (lista, prefixo) => lista.map((item, i) => `
-              <li><span class="location__icon" aria-hidden="true">${escapar(item.icone)}</span><div><strong data-i18n="${prefixo}.${i}.t">${escapar(registrar(`${prefixo}.${i}.t`, item.titulo))}</strong><span data-i18n="${prefixo}.${i}.d">${escapar(registrar(`${prefixo}.${i}.d`, item.descricao))}</span></div></li>`).join('');
+  const itensLocal = (lista, prefixo) =>
+    lista
+      .map(
+        (item, i) => `
+              <li><span class="location__icon" aria-hidden="true">${escapar(item.icone)}</span><div><strong data-i18n="${prefixo}.${i}.t">${escapar(registrar(`${prefixo}.${i}.t`, item.titulo))}</strong><span data-i18n="${prefixo}.${i}.d">${escapar(registrar(`${prefixo}.${i}.d`, item.descricao))}</span></div></li>`
+      )
+      .join('');
 
   blocos['localizacao-chegar'] = () => itensLocal(dados.localizacao.como_chegar, 'd.loc.c');
   blocos['localizacao-passeios'] = () => itensLocal(dados.localizacao.passeios, 'd.loc.p');
   blocos['localizacao-dica'] = () => {
     const dica = dados.localizacao.dica;
-    return tr(dica) ? `<p class="location__tip" data-i18n="d.loc.tip">${escapar(registrar('d.loc.tip', dica))}</p>` : '';
+    return tr(dica)
+      ? `<p class="location__tip" data-i18n="d.loc.tip">${escapar(registrar('d.loc.tip', dica))}</p>`
+      : '';
   };
 
-  blocos['faq'] = () => dados.faq.perguntas.map((p, i) => `
+  blocos['faq'] = () =>
+    dados.faq.perguntas
+      .map(
+        (p, i) => `
           <details class="faq__item">
             <summary data-i18n="d.faq.${i}.q">${escapar(registrar(`d.faq.${i}.q`, p.pergunta))}</summary>
             <p data-i18n="d.faq.${i}.a">${escapar(registrar(`d.faq.${i}.a`, p.resposta))}</p>
-          </details>`).join('');
+          </details>`
+      )
+      .join('');
 
   // Seção de pacotes: some sozinha se não houver nenhum ativo
   blocos['pacotes'] = () => {
@@ -206,16 +251,17 @@ function criarBlocos(dados, dimensoes, traducoes) {
     if (!ativos.length) return '';
     const palavra = { pt: 'noites', en: 'nights', es: 'noches' };
     const ate = { pt: 'Válido até', en: 'Valid until', es: 'Válido hasta' };
-    const cards = ativos.map((p, i) => {
-      const id = slug(p.titulo);
-      const validade = p.validade ? p.validade.split('-').reverse().join('/') : '';
-      const noites = {};
-      const textoValidade = {};
-      for (const lang of IDIOMAS) {
-        noites[lang] = `${p.noites} ${palavra[lang]}`;
-        textoValidade[lang] = `${ate[lang]} ${validade}`;
-      }
-      return `
+    const cards = ativos
+      .map((p, i) => {
+        const id = slug(p.titulo);
+        const validade = p.validade ? p.validade.split('-').reverse().join('/') : '';
+        const noites = {};
+        const textoValidade = {};
+        for (const lang of IDIOMAS) {
+          noites[lang] = `${p.noites} ${palavra[lang]}`;
+          textoValidade[lang] = `${ate[lang]} ${validade}`;
+        }
+        return `
           <article class="package" id="pacote-${id}" data-pacote="${i}" data-validade="${escapar(p.validade || '')}">
             ${imagem(p.imagem, `d.pac.${i}.alt`, p.titulo, 'package__img', '(max-width: 700px) 100vw, 380px')}
             <div class="package__body">
@@ -229,7 +275,8 @@ function criarBlocos(dados, dimensoes, traducoes) {
               </div>
             </div>
           </article>`;
-    }).join('');
+      })
+      .join('');
 
     return `
     <!-- ===== PACOTES (gerado a partir de data/pacotes.json) ===== -->
@@ -255,7 +302,8 @@ function criarBlocos(dados, dimensoes, traducoes) {
       '@type': 'LodgingBusiness',
       name: 'Pousada Lagoa Azul',
       url: g.site_url,
-      description: 'Pousada de frente para o mar, com ambiente familiar, quartos com ar-condicionado, Wi-Fi grátis, cozinha compartilhada e estacionamento em frente à praia.',
+      description:
+        'Pousada de frente para o mar, com ambiente familiar, quartos com ar-condicionado, Wi-Fi grátis, cozinha compartilhada e estacionamento em frente à praia.',
       image: `${g.site_url}img/og.jpg`,
       telephone: g.contato.telefone,
       email: g.contato.email,
@@ -271,11 +319,21 @@ function criarBlocos(dados, dimensoes, traducoes) {
       checkoutTime: '13:00',
       petsAllowed: true,
       availableLanguage: ['pt-BR', 'en', 'es'],
-      amenityFeature: ['Frente ao mar', 'Wi-Fi grátis', 'Ar-condicionado', 'Cozinha compartilhada', 'Estacionamento gratuito']
-        .map(name => ({ '@type': 'LocationFeatureSpecification', name, value: true }))
+      amenityFeature: [
+        'Frente ao mar',
+        'Wi-Fi grátis',
+        'Ar-condicionado',
+        'Cozinha compartilhada',
+        'Estacionamento gratuito'
+      ].map(name => ({ '@type': 'LocationFeatureSpecification', name, value: true }))
     };
     if (dados.avaliacoes.nota && dados.avaliacoes.total) {
-      ld.aggregateRating = { '@type': 'AggregateRating', ratingValue: Number(dados.avaliacoes.nota), reviewCount: Number(dados.avaliacoes.total), bestRating: 5 };
+      ld.aggregateRating = {
+        '@type': 'AggregateRating',
+        ratingValue: Number(dados.avaliacoes.nota),
+        reviewCount: Number(dados.avaliacoes.total),
+        bestRating: 5
+      };
     }
     return `<script type="application/ld+json">\n${JSON.stringify(ld, null, 2)}\n  </script>`;
   };
@@ -331,16 +389,25 @@ function gerarDadosJs(dados, traducoes) {
     };
   });
 
-  const pacotes = dados.pacotes.pacotes.filter(p => p.ativo !== false).map((p, i) => {
-    for (const lang of IDIOMAS) traducoes[lang][`pac.nome.${i}`] = tr(p.titulo, lang);
-    return { noites: p.noites, preco: p.preco };
-  });
+  const pacotes = dados.pacotes.pacotes
+    .filter(p => p.ativo !== false)
+    .map((p, i) => {
+      for (const lang of IDIOMAS) traducoes[lang][`pac.nome.${i}`] = tr(p.titulo, lang);
+      return { noites: p.noites, preco: p.preco };
+    });
 
   const config = {
-    contato: { whatsapp: g.contato.whatsapp, instagram: g.contato.instagram, facebook: g.contato.facebook, email: g.contato.email },
+    contato: {
+      whatsapp: g.contato.whatsapp,
+      instagram: g.contato.instagram,
+      facebook: g.contato.facebook,
+      email: g.contato.email
+    },
     integracoes: { formspree: g.integracoes.formspree_id, analytics: g.integracoes.google_analytics },
     pix: { chave: g.pix.chave, nome: g.pix.nome, cidade: g.pix.cidade, sinal: Number(g.pix.sinal_percentual) || 30 },
-    quartos: Object.fromEntries(Object.entries(dados.quartos).map(([id, q]) => [id, { preco: q.preco, capacidade: q.capacidade }])),
+    quartos: Object.fromEntries(
+      Object.entries(dados.quartos).map(([id, q]) => [id, { preco: q.preco, capacidade: q.capacidade }])
+    ),
     temporadas,
     bloqueios: dados.disponibilidade.bloqueios
       .filter(b => b.inicio && b.fim)

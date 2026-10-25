@@ -1,0 +1,223 @@
+/* =========================================
+   HEADER
+   ========================================= */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--header-height);
+  z-index: 100;
+  transition:
+    background var(--transition),
+    box-shadow var(--transition);
+}
+.header.is-scrolled {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(1.4) blur(12px);
+  box-shadow:
+    0 1px 0 rgba(18, 52, 58, 0.06),
+    0 6px 20px rgba(18, 52, 58, 0.06);
+}
+.header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-white);
+}
+.logo span {
+  color: var(--color-accent);
+}
+.header.is-scrolled .logo {
+  color: var(--color-primary);
+}
+.header.is-scrolled .logo span {
+  color: var(--color-accent-text);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.nav__link {
+  color: var(--color-white);
+  font-weight: 500;
+  position: relative;
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width var(--transition);
+}
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  width: 100%;
+}
+.header.is-scrolled .nav__link {
+  color: var(--color-text);
+}
+
+/* Seletor de idioma */
+.lang-switch {
+  display: flex;
+  gap: 0.15rem;
+}
+.lang-switch button {
+  color: var(--color-white);
+  opacity: 0.75;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 0.3rem 0.4rem;
+  border-radius: 6px;
+  transition:
+    opacity var(--transition),
+    background var(--transition);
+}
+.lang-switch button:hover {
+  opacity: 1;
+}
+.lang-switch button[aria-pressed='true'] {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
+}
+.header.is-scrolled .lang-switch button {
+  color: var(--color-text);
+}
+.header.is-scrolled .lang-switch button[aria-pressed='true'] {
+  background: var(--color-bg-alt);
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+}
+.menu-toggle span {
+  width: 26px;
+  height: 3px;
+  background: var(--color-white);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+.header.is-scrolled .menu-toggle span {
+  background: var(--color-text);
+}
+
+/* =========================================
+   HERO
+   ========================================= */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-primary-dark) url('../img/capa-1920.webp') center/cover no-repeat;
+  color: var(--color-white);
+}
+/* Escurece a foto para o texto branco ficar legível */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(8, 32, 36, 0.62) 0%, rgba(8, 32, 36, 0.3) 55%, rgba(8, 32, 36, 0.1) 100%),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(0, 0, 0, 0) 30%,
+      rgba(0, 0, 0, 0) 70%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+}
+.hero__content {
+  position: relative;
+  max-width: 700px;
+  padding-bottom: 3rem;
+}
+.hero__tag {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+}
+.hero h1 {
+  font-size: clamp(2.3rem, 6vw, 4.2rem);
+  margin-bottom: 1.2rem;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+}
+.hero__text {
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  max-width: 560px;
+}
+.hero__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.hero__highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 2.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.hero__highlights li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.92;
+}
+.hero__highlights li::before {
+  content: '✓';
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+/* Entrada suave do texto da capa */
+.hero__content > * {
+  animation: subir 0.8s ease both;
+}
+.hero__content > :nth-child(2) {
+  animation-delay: 0.1s;
+}
+.hero__content > :nth-child(3) {
+  animation-delay: 0.2s;
+}
+.hero__content > :nth-child(4) {
+  animation-delay: 0.3s;
+}
+.hero__content > :nth-child(5) {
+  animation-delay: 0.4s;
+}
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
